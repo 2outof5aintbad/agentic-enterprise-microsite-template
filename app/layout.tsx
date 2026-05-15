@@ -11,6 +11,7 @@ import "./globals.css";
 import { ACCOUNT } from "@/data/account";
 import StickyNav from "@/components/StickyNav";
 import PageTransition from "@/components/PageTransition";
+import AgentforceChat from "@/components/AgentforceChat";
 
 // ── Body fonts ───────────────────────────────────────────────────────────────
 const inter        = Inter({        subsets: ["latin"], variable: "--font-inter",        display: "swap" });
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-[var(--brand-bg)] text-white antialiased" style={{ fontFamily: "var(--font-body), sans-serif" }}>
         <PageTransition>{children}</PageTransition>
         <StickyNav />
+        <AgentforceChat />
       </body>
     </html>
   );
