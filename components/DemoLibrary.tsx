@@ -207,7 +207,7 @@ export default function DemoLibrary({ videos }: { videos: DemoVideo[] }) {
             onClick={() => setFilter(id)}
             className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${
               filter === id
-                ? "bg-[var(--brand-primary)] text-white shadow-md shadow-[#F40009]/25"
+                ? "bg-[var(--brand-primary)] text-white shadow-md shadow-[var(--brand-primary)]/25"
                 : "bg-white border border-black/10 text-[#3D3D3D] hover:border-[var(--brand-primary)]/30 hover:text-[var(--brand-primary)]"
             }`}
           >

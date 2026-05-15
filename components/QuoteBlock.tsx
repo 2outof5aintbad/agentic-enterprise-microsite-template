@@ -11,7 +11,7 @@ export default function QuoteBlock({ text, attribution, variant = "default" }: Q
     <blockquote className={`relative overflow-hidden rounded-2xl px-10 py-10 ${
       isAccent
         ? "bg-[var(--brand-primary)]"
-        : "bg-white border border-black/10 border-l-4 border-l-[#F40009] shadow-md"
+        : "bg-white border border-black/10 border-l-4 border-l-[var(--brand-primary)] shadow-md"
     }`}>
 
       {isAccent && (

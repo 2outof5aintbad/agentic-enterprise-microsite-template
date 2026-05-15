@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ACCOUNT } from "@/data/account";
 
 export default function GatePage() {
@@ -48,13 +49,17 @@ export default function GatePage() {
           <span className="text-white/40 text-xs font-semibold tracking-[0.15em] uppercase">The Agentic Enterprise</span>
         </div>
 
-        {/* Account hero image — place at /public/images/gate-hero.jpg to populate */}
-        <div className="relative flex-1 flex items-center justify-center opacity-20">
-          <svg viewBox="0 0 200 200" className="w-64 h-64" fill="none" aria-hidden>
-            <circle cx="100" cy="100" r="80" stroke="var(--brand-primary)" strokeWidth="2" strokeDasharray="8 6"/>
-            <circle cx="100" cy="100" r="50" fill="var(--brand-primary)" fillOpacity="0.15"/>
-            <path d="M70 100 Q100 70 130 100 Q100 130 70 100Z" fill="var(--brand-primary)" fillOpacity="0.3"/>
-          </svg>
+        {/* Replace with gate-hero.jpg for a custom account background */}
+        <div className="relative flex-1 flex items-end justify-center overflow-hidden">
+          <Image
+            src="/images/ASTRO_NoOutfit_WalkRight_SFS20_sRGB.png"
+            alt=""
+            width={340}
+            height={420}
+            className="object-contain object-bottom select-none"
+            aria-hidden
+            priority
+          />
         </div>
 
         <div className="relative z-20 px-10 pb-10">
@@ -79,6 +84,16 @@ export default function GatePage() {
 
         <div className="flex-1 flex items-center justify-center px-10 lg:px-16">
           <div className="w-full max-w-[340px]">
+
+            <div className="mb-7">
+              <Image
+                src="/images/Salesforce.com_logo.svg.png"
+                alt="Salesforce"
+                width={120}
+                height={28}
+                className="object-contain opacity-70"
+              />
+            </div>
 
             <p className="text-[0.6rem] font-bold tracking-[0.2em] uppercase text-[var(--brand-primary)] mb-6">
               Private Access

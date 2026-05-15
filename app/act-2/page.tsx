@@ -128,7 +128,7 @@ export default function Data360Page() {
               <p className="text-base text-white/70 mt-2 max-w-sm">The data foundation makes every feature reliable. See what becomes possible.</p>
             </div>
           </FadeIn>
-          <Link href={next.href} className="shrink-0 inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white font-bold text-base transition-all duration-200 hover:shadow-xl hover:shadow-[#F40009]/30 hover:-translate-y-0.5">
+          <Link href={next.href} className="shrink-0 inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white font-bold text-base transition-all duration-200 hover:shadow-xl hover:shadow-[var(--brand-primary)]/30 hover:-translate-y-0.5">
             {next.label}
             <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>

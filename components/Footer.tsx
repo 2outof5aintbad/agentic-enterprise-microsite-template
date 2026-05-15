@@ -12,10 +12,17 @@ export default function Footer() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-1">
-          <Link href="/act-1"        className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Act 1</Link>
-          <Link href="/act-2"        className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Data Foundation</Link>
-          <Link href="/act-3"        className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Agentic</Link>
-          <Link href="/account-team" className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Team</Link>
+          <Link href="/act-1"         className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Act 1</Link>
+          <Link href="/act-2"         className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Data</Link>
+          <Link href="/act-3"         className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Agentic</Link>
+          <Link href="/architecture"  className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Architecture</Link>
+          <Link href="/strategy"      className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Strategy</Link>
+          <Link href="/agents"        className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Agents</Link>
+          <Link href="/proof"         className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Results</Link>
+          <Link href="/use-cases"     className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Use Cases</Link>
+          <Link href="/business-case" className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Business Case</Link>
+          <Link href="/pilot"         className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Pilot Plan</Link>
+          <Link href="/account-team"  className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Team</Link>
         </div>
       </div>
     </footer>

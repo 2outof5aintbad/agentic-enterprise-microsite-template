@@ -131,8 +131,8 @@ export default function Act3Page() {
                     {e.actions.map((action, j) => (
                       <li key={j} className="flex items-start gap-2.5">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 mt-0.5" aria-hidden>
-                          <circle cx="7" cy="7" r="6" fill="#F40009" fillOpacity="0.1"/>
-                          <path d="M4.5 7.5l1.5 1.5 3.5-3.5" stroke="#F40009" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                          <circle cx="7" cy="7" r="6" fill="var(--brand-primary)" fillOpacity="0.1"/>
+                          <path d="M4.5 7.5l1.5 1.5 3.5-3.5" stroke="var(--brand-primary)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                         <span className="text-xs font-medium text-[#3D3D3D] leading-snug">{action}</span>
                       </li>

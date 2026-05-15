@@ -7,10 +7,10 @@ import QuoteBlock from "@/components/QuoteBlock";
 import CockpitFlow, { type CockpitFlowStep } from "@/components/CockpitFlow";
 import FadeIn from "@/components/FadeIn";
 
-export const metadata: Metadata = { title: ACCOUNT.cockpit.meta.title };
+export const metadata: Metadata = { title: ACCOUNT.act1.meta.title };
 
-export default function CockpitPage() {
-  const { hero, narrative, beforeAfter, metrics, enablers, quote, next } = ACCOUNT.cockpit;
+export default function Act1Page() {
+  const { hero, narrative, beforeAfter, metrics, enablers, quote, next } = ACCOUNT.act1;
   const { scenarioFlow } = ACCOUNT;
 
   return (
@@ -18,7 +18,7 @@ export default function CockpitPage() {
       <Nav />
       <Hero eyebrow={hero.eyebrow} headline={hero.headline} subheadline={hero.subheadline} />
 
-      {/* ── Narrative cards — cream ── */}
+      {/* ── Narrative cards ── */}
       <section className="bg-[var(--brand-light)]">
         <div className="max-w-6xl mx-auto px-6 py-20">
           <div className="grid sm:grid-cols-2 gap-6">
@@ -34,7 +34,7 @@ export default function CockpitPage() {
         </div>
       </section>
 
-      {/* ── Before vs. After — white ── */}
+      {/* ── Before vs. After ── */}
       <section className="bg-white border-t border-black/6">
         <div className="max-w-6xl mx-auto px-6 py-20">
           <FadeIn>
@@ -49,7 +49,6 @@ export default function CockpitPage() {
           </FadeIn>
 
           <div className="rounded-2xl border border-black/8 overflow-hidden shadow-sm">
-            {/* Header row */}
             <div className="grid grid-cols-3 bg-[#0A0A0A] px-6 py-4">
               <p className="text-xs font-bold tracking-widest uppercase text-white/40">Dimension</p>
               <p className="text-xs font-bold tracking-widest uppercase text-white/40">Before</p>
@@ -62,8 +61,8 @@ export default function CockpitPage() {
                   <p className="text-sm text-[#3D3D3D] leading-relaxed">{row.before}</p>
                   <div className="flex items-start gap-2">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 mt-0.5" aria-hidden>
-                      <circle cx="8" cy="8" r="7" fill="#F40009" fillOpacity="0.1"/>
-                      <path d="M5 8.5l2 2 4-4" stroke="#F40009" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <circle cx="8" cy="8" r="7" fill="var(--brand-primary)" fillOpacity="0.1"/>
+                      <path d="M5 8.5l2 2 4-4" stroke="var(--brand-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                     <p className="text-sm text-[#0A0A0A] font-medium leading-relaxed">{row.after}</p>
                   </div>
@@ -74,7 +73,7 @@ export default function CockpitPage() {
         </div>
       </section>
 
-      {/* ── KAM Cockpit Flow — centerpiece ── */}
+      {/* ── Scenario Flow ── */}
       <section className="bg-[var(--brand-light)] border-t border-black/6">
         <div className="max-w-6xl mx-auto px-6 py-20">
           <FadeIn>
@@ -94,7 +93,7 @@ export default function CockpitPage() {
         </div>
       </section>
 
-      {/* ── Business Impact — Coke red ── */}
+      {/* ── Business Impact ── */}
       <section className="relative overflow-hidden bg-[var(--brand-primary)]">
         <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1440 300" fill="none" preserveAspectRatio="xMidYMid slice" aria-hidden>
           <path d="M-100 200 Q300 100 600 150 Q900 200 1200 80 Q1360 20 1600 120" stroke="white" strokeWidth="120" strokeLinecap="round" fill="none" opacity="0.07"/>
@@ -125,7 +124,7 @@ export default function CockpitPage() {
         </div>
       </section>
 
-      {/* ── Enablers — white ── */}
+      {/* ── Enablers ── */}
       <section className="bg-white border-t border-black/6">
         <div className="max-w-6xl mx-auto px-6 py-20">
           <FadeIn>
@@ -163,7 +162,7 @@ export default function CockpitPage() {
                 href="/act-2"
                 className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white font-bold text-sm transition-all duration-200"
               >
-                Explore Data 360
+                Explore Data Foundation
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                   <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -192,7 +191,7 @@ export default function CockpitPage() {
               <p className="text-base text-white/70 mt-2 max-w-sm">When AI moves from informing your team to executing on their behalf.</p>
             </div>
           </FadeIn>
-          <Link href={next.href} className="shrink-0 inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white font-bold text-base transition-all duration-200 hover:shadow-xl hover:shadow-[#F40009]/30 hover:-translate-y-0.5">
+          <Link href={next.href} className="shrink-0 inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white font-bold text-base transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5">
             {next.label}
             <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>

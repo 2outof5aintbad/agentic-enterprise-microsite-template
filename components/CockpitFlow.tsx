@@ -238,7 +238,7 @@ export default function CockpitFlow({ scenario, steps }: Props) {
             >
               <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-bold text-xs transition-all duration-300 ${
                 activeIndex === i
-                  ? "bg-[var(--brand-primary)] text-white scale-110 shadow-md shadow-[#F40009]/30"
+                  ? "bg-[var(--brand-primary)] text-white scale-110 shadow-md shadow-[var(--brand-primary)]/30"
                   : visibleSteps.has(i)
                   ? "bg-[var(--brand-primary)]/15 text-[var(--brand-primary)]"
                   : "bg-black/8 text-black/30"
@@ -262,7 +262,7 @@ export default function CockpitFlow({ scenario, steps }: Props) {
               ref={(el) => { stepRefs.current[i] = el; }}
               className={`rounded-2xl border overflow-hidden transition-all duration-500 ${
                 activeIndex === i
-                  ? "border-[var(--brand-primary)]/25 shadow-lg shadow-[#F40009]/6"
+                  ? "border-[var(--brand-primary)]/25 shadow-lg shadow-[var(--brand-primary)]/6"
                   : "border-black/8 shadow-sm"
               } ${visibleSteps.has(i) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
               style={{ transitionDelay: visibleSteps.has(i) ? "0ms" : `${i * 80}ms` }}
@@ -271,7 +271,7 @@ export default function CockpitFlow({ scenario, steps }: Props) {
               <div className={`flex items-start gap-4 p-6 pb-5 ${activeIndex === i ? "bg-white" : "bg-white"}`}>
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 font-bold text-sm transition-all duration-300 ${
                   activeIndex === i
-                    ? "bg-[var(--brand-primary)] text-white shadow-md shadow-[#F40009]/30"
+                    ? "bg-[var(--brand-primary)] text-white shadow-md shadow-[var(--brand-primary)]/30"
                     : "bg-[#F5F2EE] text-[#3D3D3D]"
                 }`}>
                   {step.number}

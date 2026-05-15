@@ -42,7 +42,7 @@ function TimelineItem({ item, isOpen, onToggle }: { item: TimelineStep; isOpen: 
           onClick={onToggle}
           aria-expanded={isOpen}
           className={`w-9 h-9 rounded-full border-2 flex items-center justify-center text-xs font-black transition-all duration-200 shrink-0 ${dotColor} ${
-            isOpen ? "text-white shadow-lg shadow-[#F40009]/30 scale-110" : "text-[#0A0A0A] hover:scale-105"
+            isOpen ? "text-white shadow-lg shadow-[var(--brand-primary)]/30 scale-110" : "text-[#0A0A0A] hover:scale-105"
           }`}
         >
           {isOpen ? (

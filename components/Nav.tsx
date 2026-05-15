@@ -6,12 +6,19 @@ import { useState, useEffect, useRef } from "react";
 import { ACCOUNT } from "@/data/account";
 
 const navLinks = [
-  { href: "/",              label: "Overview" },
-  { href: "/act-1",        label: ACCOUNT.acts[0].title },
-  { href: "/act-2",        label: "Data Foundation" },
-  { href: "/act-3",        label: "Agentic Enterprise" },
-  { href: "/account-team", label: "Account Team" },
-  { href: "/demo-library", label: "Demo Library" },
+  { href: "/",               label: "Overview" },
+  { href: "/act-1",          label: ACCOUNT.acts[0].title },
+  { href: "/act-2",          label: "Data Foundation" },
+  { href: "/act-3",          label: "Agentic Enterprise" },
+  { href: "/architecture",   label: "Architecture" },
+  { href: "/strategy",       label: "Strategy" },
+  { href: "/agents",         label: "Agents" },
+  { href: "/proof",          label: "Results" },
+  { href: "/use-cases",      label: "Use Cases" },
+  { href: "/business-case",  label: "Business Case" },
+  { href: "/pilot",          label: "Pilot Plan" },
+  { href: "/account-team",   label: "Account Team" },
+  { href: "/demo-library",   label: "Demo Library" },
 ];
 
 export default function Nav() {

@@ -40,7 +40,7 @@ export default function AgenticFlow({ steps }: Props) {
               {/* Step number */}
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black transition-all duration-300 ${
                 isActive
-                  ? isAuto ? "bg-[var(--brand-primary)] text-white shadow-lg shadow-[#F40009]/40" : "bg-amber-500 text-white"
+                  ? isAuto ? "bg-[var(--brand-primary)] text-white shadow-lg shadow-[var(--brand-primary)]/40" : "bg-amber-500 text-white"
                   : "bg-white border border-black/10 text-[#3D3D3D] group-hover:border-[var(--brand-primary)]/30 group-hover:text-[var(--brand-primary)]"
               }`}>
                 {step.step}
@@ -97,7 +97,7 @@ export default function AgenticFlow({ steps }: Props) {
                 className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-black border-2 transition-all duration-300 ${
                   isOpen
                     ? isAuto
-                      ? "bg-[var(--brand-primary)] border-[var(--brand-primary)] text-white shadow-lg shadow-[#F40009]/30 scale-110"
+                      ? "bg-[var(--brand-primary)] border-[var(--brand-primary)] text-white shadow-lg shadow-[var(--brand-primary)]/30 scale-110"
                       : "bg-amber-500 border-amber-500 text-white scale-110"
                     : "bg-white border-black/15 text-[#3D3D3D] hover:border-[var(--brand-primary)]/40 hover:text-[var(--brand-primary)]"
                 }`}

@@ -9,9 +9,12 @@ const GROUP_LABELS: Record<TeamGroup, string> = {
   engineering:  "Solution Engineering",
   architecture: "Technical Architecture",
   success:      "Customer Success",
+  specialist:   "Specialists",
+  analytics:    "Analytics",
+  data:         "Data",
 };
 
-const GROUP_ORDER: TeamGroup[] = ["sales", "engineering", "architecture", "success"];
+const GROUP_ORDER: TeamGroup[] = ["sales", "engineering", "architecture", "success", "specialist", "analytics", "data"];
 
 const FILTER_BUTTONS: { id: TeamGroup | "all"; label: string }[] = [
   { id: "all",          label: "All" },
@@ -19,6 +22,9 @@ const FILTER_BUTTONS: { id: TeamGroup | "all"; label: string }[] = [
   { id: "engineering",  label: "Solutions" },
   { id: "architecture", label: "Architecture" },
   { id: "success",      label: "Success" },
+  { id: "specialist",   label: "Specialists" },
+  { id: "analytics",    label: "Analytics" },
+  { id: "data",         label: "Data" },
 ];
 
 function initials(name: string) {
@@ -35,6 +41,9 @@ const GROUP_COLOR: Record<TeamGroup, string> = {
   engineering:  "bg-blue-50 text-blue-700",
   architecture: "bg-purple-50 text-purple-700",
   success:      "bg-emerald-50 text-emerald-700",
+  specialist:   "bg-amber-50 text-amber-700",
+  analytics:    "bg-teal-50 text-teal-700",
+  data:         "bg-indigo-50 text-indigo-700",
 };
 
 function MemberCard({ member }: { member: TeamMember }) {
@@ -121,7 +130,7 @@ export default function AccountTeam({ members }: Props) {
             placeholder="Search by name or role…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-full border border-black/10 bg-white text-sm text-[#0A0A0A] placeholder-black/30 focus:outline-none focus:border-[var(--brand-primary)]/40 focus:ring-2 focus:ring-[#F40009]/10 transition-all"
+            className="w-full pl-10 pr-4 py-2.5 rounded-full border border-black/10 bg-white text-sm text-[#0A0A0A] placeholder-black/30 focus:outline-none focus:border-[var(--brand-primary)]/40 focus:ring-2 focus:ring-[var(--brand-primary)]/10 transition-all"
           />
           {query && (
             <button
@@ -143,7 +152,7 @@ export default function AccountTeam({ members }: Props) {
               onClick={() => setFilter(id)}
               className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${
                 filter === id
-                  ? "bg-[var(--brand-primary)] text-white shadow-md shadow-[#F40009]/25"
+                  ? "bg-[var(--brand-primary)] text-white shadow-md shadow-[var(--brand-primary)]/25"
                   : "bg-white border border-black/10 text-[#3D3D3D] hover:border-[var(--brand-primary)]/30 hover:text-[var(--brand-primary)]"
               }`}
             >

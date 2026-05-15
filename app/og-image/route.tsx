@@ -1,11 +1,13 @@
 import { ImageResponse } from "next/og";
+import { ACCOUNT } from "@/data/account";
 
 export const runtime = "edge";
 
 export async function GET() {
+  const { company, hero, brand } = ACCOUNT;
+
   return new ImageResponse(
     (
-
       <div
         style={{
           width: "100%",
@@ -13,14 +15,14 @@ export async function GET() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-end",
-          background: "#0A0A0A",
+          background: brand.bg,
           padding: "64px",
           fontFamily: "sans-serif",
           position: "relative",
         }}
       >
-        {/* Red accent bar */}
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "6px", background: "#F40009" }} />
+        {/* Brand accent bar */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "6px", background: brand.primary }} />
 
         {/* Background wave */}
         <svg
@@ -29,7 +31,7 @@ export async function GET() {
         >
           <path
             d="M-100 420 Q200 260 500 340 Q800 420 1100 240 Q1260 150 1400 300"
-            stroke="#F40009"
+            stroke={brand.primary}
             strokeWidth="220"
             strokeLinecap="round"
             fill="none"
@@ -37,43 +39,36 @@ export async function GET() {
         </svg>
 
         {/* Eyebrow */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            marginBottom: "24px",
-          }}
-        >
-          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#F40009" }} />
-          <span style={{ color: "#F40009", fontSize: "14px", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase" }}>
-            Private AI Transformation Briefing
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "24px" }}>
+          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: brand.primary }} />
+          <span style={{ color: brand.primary, fontSize: "14px", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase" }}>
+            {hero.eyebrow}
           </span>
         </div>
 
         {/* Headline */}
         <div style={{ fontSize: "72px", fontWeight: 900, color: "#ffffff", lineHeight: 0.95, marginBottom: "28px", letterSpacing: "-0.02em" }}>
-          The Commercial Cockpit
+          {hero.headline.replace(/\n/g, " ")}
         </div>
 
         {/* Subhead */}
         <div style={{ fontSize: "24px", color: "rgba(255,255,255,0.65)", lineHeight: 1.4, maxWidth: "700px", marginBottom: "52px" }}>
-          How Agentforce and Data Cloud can accelerate commercial execution for Coca-Cola.
+          {hero.subheadline}
         </div>
 
         {/* Footer row */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "#F40009", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: brand.primary, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <div style={{ width: "16px", height: "20px", background: "rgba(255,255,255,0.9)", borderRadius: "2px" }} />
             </div>
             <div>
-              <div style={{ color: "rgba(255,255,255,0.9)", fontSize: "15px", fontWeight: 700 }}>Michael Emery</div>
-              <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", letterSpacing: "0.1em", textTransform: "uppercase" }}>Account SE · Salesforce</div>
+              <div style={{ color: "rgba(255,255,255,0.9)", fontSize: "15px", fontWeight: 700 }}>Salesforce Account Team</div>
+              <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", letterSpacing: "0.1em", textTransform: "uppercase" }}>{company} · Confidential</div>
             </div>
           </div>
           <div style={{ display: "flex", gap: "8px" }}>
-            {["Commercial Cockpit", "Data 360", "Agentic Enterprise", "Value Estimator"].map((label) => (
+            {["Act 1", "Data Foundation", "Agentic Enterprise", "Use Cases"].map((label) => (
               <div
                 key={label}
                 style={{
