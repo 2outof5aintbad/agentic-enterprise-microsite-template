@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  :root {
+    /* ── Brand tokens — set these per account in ACCOUNT.brand ── */
+    --brand-primary:      #0066FF;
+    --brand-primary-dark: #0052CC;
+    --brand-bg:           #0A0A0A;
+    --brand-light:        #F5F5F5;
+  }
+}
+
+/* ── Scroll animations ───────────────────────────────────────────────────── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease-out, transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Hero entrance ───────────────────────────────────────────────────────── */
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-eyebrow  { animation: hero-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both; }
+.hero-headline { animation: hero-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both; }
+.hero-sub      { animation: hero-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both; }
+.hero-ctas     { animation: hero-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.46s both; }
+
+/* ── Font utilities ──────────────────────────────────────────────────────── */
+.font-display { font-family: var(--font-playfair), serif; }
+
+/* ── Eyebrow pill — brand primary (on dark bg) ───────────────────────────── */
+.eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.85rem;
+  border-radius: 9999px;
+  background: var(--brand-primary);
+  color: rgba(255,255,255,0.95);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ── Page transitions ────────────────────────────────────────────────────── */
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-transition {
+  animation: page-fade-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Eyebrow pill — outline (on light bg) ───────────────────────────────── */
+.eyebrow-pill-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.85rem;
+  border-radius: 9999px;
+  border: 1.5px solid var(--brand-primary);
+  color: var(--brand-primary);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
