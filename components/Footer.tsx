@@ -17,6 +17,7 @@ export default function Footer() {
           <Link href="/act-3"         className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">The Future</Link>
           <Link href="/architecture"  className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Architecture</Link>
           <Link href="/strategy"      className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Strategy</Link>
+          <Link href="/agent-tracker"  className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Agent Tracker</Link>
           <Link href="/agents"        className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Agents</Link>
           <Link href="/proof"         className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Results</Link>
           <Link href="/use-cases"     className="px-4 py-2 rounded-full text-sm text-white/55 hover:text-white hover:bg-white/10 transition-all font-semibold">Use Cases</Link>

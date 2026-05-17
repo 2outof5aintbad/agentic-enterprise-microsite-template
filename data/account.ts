@@ -710,6 +710,78 @@ export const ACCOUNT = {
     },
   ] as TeamMember[],
 
+  // ── Agent Tracker ─────────────────────────────────────────────────────────
+  // Live deployment dashboard — what's running, piloting, and planned.
+  // status: "live" | "pilot" | "planned"
+  // metrics: shown as "Outcomes" for live/pilot, "Target Metrics" for planned
+  agentTracker: {
+    meta: { title: "Agent Tracker · Executive Briefing" },
+    hero: {
+      eyebrow: "Agentforce in Motion",
+      headline: "TODO: e.g. '3 agents.\n1 live.\n2 in motion.'",
+      subheadline: "TODO: A live view of every Agentforce agent — what's running, what's in pilot, and what's coming next.",
+    },
+    successMetrics: [
+      { value: "TODO", label: "agents in production",       sublabel: "TODO: context" },
+      { value: "TODO", label: "active pilots + planned",    sublabel: "TODO: context" },
+      { value: "TODO", label: "employees on Agentforce",    sublabel: "TODO: context" },
+      { value: "TODO", label: "first agent go-live",        sublabel: "TODO: context" },
+    ],
+    agents: [
+      {
+        id: "agent-1",
+        status: "live" as const,
+        name: "TODO: Agent Name",
+        tagline: "TODO: First-person — what I do and why it matters.",
+        entity: "TODO: Business unit or org entity",
+        function: "TODO: Business function — e.g. 'Consumer Service Triage & Case Management'",
+        description: "TODO: 2–3 sentences. What it does, what systems it touches, who uses it.",
+        goLive: "TODO: e.g. 'April 2026'",
+        metrics: [
+          { value: "TODO%", label: "TODO: outcome metric" },
+          { value: "TODO",  label: "TODO: scale or adoption metric" },
+        ],
+        highlights: [
+          "TODO: Key fact, stakeholder, or scope note.",
+          "TODO: Another highlight — go-live milestone, expansion, or customer quote.",
+        ],
+      },
+      {
+        id: "agent-2",
+        status: "pilot" as const,
+        name: "TODO: Agent Name",
+        tagline: "TODO: First-person tagline.",
+        entity: "TODO: Entity",
+        function: "TODO: Function",
+        description: "TODO: Description.",
+        goLive: "TODO: e.g. 'Active POC · Q2 2026'",
+        metrics: [
+          { value: "TODO", label: "TODO: target metric" },
+          { value: "TODO", label: "TODO: target metric" },
+        ],
+        highlights: [
+          "TODO: Key detail.",
+        ],
+      },
+      {
+        id: "agent-3",
+        status: "planned" as const,
+        name: "TODO: Agent Name",
+        tagline: "TODO: First-person tagline.",
+        entity: "TODO: Entity",
+        function: "TODO: Function",
+        description: "TODO: Description.",
+        goLive: "TODO: e.g. '90-day POC scoped · Q3 2026'",
+        metrics: [
+          { value: "TODO", label: "TODO: projected metric" },
+        ],
+        highlights: [
+          "TODO: Key detail or stakeholder.",
+        ],
+      },
+    ],
+  },
+
   // ── Agentforce Embedded Chat (optional) ──────────────────────────────────
   // Leave as null to disable. Fill in values from Salesforce Setup →
   // Messaging Settings → your Embedded Service Deployment → View → Get Code.

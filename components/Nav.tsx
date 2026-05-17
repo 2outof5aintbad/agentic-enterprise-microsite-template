@@ -12,6 +12,7 @@ const navLinks = [
   { href: "/act-3",          label: ACCOUNT.acts[2].title },
   { href: "/architecture",   label: "Architecture" },
   { href: "/strategy",       label: "Strategy" },
+  { href: "/agent-tracker",  label: "Agent Tracker" },
   { href: "/agents",         label: "Agents" },
   { href: "/proof",          label: "Results" },
   { href: "/use-cases",      label: "Use Cases" },
