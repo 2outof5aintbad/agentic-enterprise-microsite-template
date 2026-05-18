@@ -47,18 +47,21 @@ const GROUP_COLOR: Record<TeamGroup, string> = {
 };
 
 function MemberCard({ member }: { member: TeamMember }) {
+  const [imgError, setImgError] = useState(false);
   return (
     <div className="flex items-center gap-4 p-4 rounded-2xl border border-black/6 bg-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
       {/* Avatar */}
       <div className="shrink-0">
-        {member.image ? (
+        {member.image && !imgError ? (
           <div className="w-14 h-14 rounded-full overflow-hidden ring-2 ring-black/6">
             <Image
               src={member.image}
               alt={member.name}
               width={56}
               height={56}
+              unoptimized
               className="object-cover w-full h-full"
+              onError={() => setImgError(true)}
             />
           </div>
         ) : (
