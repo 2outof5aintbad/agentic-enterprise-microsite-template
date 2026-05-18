@@ -130,6 +130,56 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Explore Further ── */}
+      <section className="bg-[var(--brand-bg)] border-t border-white/8">
+        <div className="max-w-6xl mx-auto px-6 py-24">
+          <FadeIn>
+            <div className="mb-12">
+              <div className="mb-5">
+                <span className="eyebrow-pill">Go Deeper</span>
+              </div>
+              <h2 className="font-display text-4xl sm:text-5xl font-black text-white tracking-tight leading-[0.95] mb-4">
+                Explore the full picture.
+              </h2>
+              <p className="text-lg text-white/55 max-w-xl leading-relaxed">
+                Every dimension of the transformation — from architecture to agents to business case.
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {[
+              { href: "/architecture",  label: "Architecture",   desc: "The layered platform stack" },
+              { href: "/strategy",      label: "Strategy",       desc: "Transformation framework" },
+              { href: "/agents",        label: "Agents",         desc: "Purpose-built for your team" },
+              { href: "/agent-tracker", label: "Agent Tracker",  desc: "What's live and in motion" },
+              { href: "/proof",         label: "Results",        desc: "Outcomes by function" },
+              { href: "/use-cases",     label: "Use Cases",      desc: "Specific workflows transformed" },
+              { href: "/business-case", label: "Business Case",  desc: "The investment and the return" },
+              { href: "/pilot",         label: "Pilot Plan",     desc: "90-day path to production" },
+            ].map((item, i) => (
+              <FadeIn key={item.href} delay={i * 40}>
+                <Link
+                  href={item.href}
+                  className="group flex flex-col gap-1.5 p-5 rounded-2xl border border-white/8 bg-white/[0.03] hover:border-[var(--brand-primary)]/40 hover:bg-white/[0.06] transition-all duration-200"
+                >
+                  <p className="font-display text-base font-black text-white group-hover:text-[var(--brand-primary)] transition-colors duration-200 leading-tight">
+                    {item.label}
+                  </p>
+                  <p className="text-xs text-white/40 leading-snug">{item.desc}</p>
+                  <div className="mt-2 flex items-center gap-1 text-[0.6rem] font-bold text-white/20 group-hover:text-[var(--brand-primary)]/60 transition-colors duration-200">
+                    Explore
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden className="group-hover:translate-x-0.5 transition-transform duration-200">
+                      <path d="M2.5 6h7M6.5 2.5L10 6l-3.5 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <section className="bg-[var(--brand-bg)] border-t border-white/8">
         <div className="max-w-6xl mx-auto px-6 py-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
