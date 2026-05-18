@@ -113,6 +113,13 @@ export const ACCOUNT = {
     // "default"   — balanced (works everywhere)
     // "spacious"  — more breathing room (editorial, premium, light themes)
     density: "default" as "compact" | "default" | "spacious",
+
+    // Co-branded nav logos — shows [customerLogo] × [Salesforce] lockup in the nav header
+    // customerLogo: URL or /public path to customer logo image (e.g. "/images/customer-logo.png")
+    // customerLogoDark: optional alternate logo for dark-background navs (defaults to customerLogo)
+    // If omitted, nav shows company name text as before
+    customerLogo: undefined as string | undefined,
+    customerLogoDark: undefined as string | undefined,
   },
 
   // ── Hero ───────────────────────────────────────────────────────────────────

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { ACCOUNT } from "@/data/account";
@@ -50,14 +51,32 @@ export default function Nav() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
         <Link href="/" className="flex items-center gap-3 shrink-0 group">
-          <div className="leading-tight">
-            <p className="text-[10px] font-bold tracking-[0.18em] uppercase mb-0.5" style={{ color: "var(--brand-text-muted)" }}>
-              Executive Briefing
-            </p>
-            <p className="font-display text-[1rem] font-black leading-none group-hover:text-[var(--brand-primary)] transition-colors duration-200" style={{ color: "var(--brand-text-heading)" }}>
-              {ACCOUNT.company}
-            </p>
-          </div>
+          {ACCOUNT.brand.customerLogo ? (
+            <div className="flex items-center gap-2.5">
+              <Image
+                src={ACCOUNT.brand.customerLogoDark ?? ACCOUNT.brand.customerLogo}
+                alt={ACCOUNT.company}
+                width={96}
+                height={28}
+                className="object-contain object-left max-h-7"
+                style={{ width: "auto" }}
+              />
+              <span className="text-sm font-light select-none" style={{ color: "var(--brand-text-muted)" }}>×</span>
+              {/* Salesforce cloud mark */}
+              <svg width="28" height="20" viewBox="0 0 52 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Salesforce" role="img">
+                <path d="M21.7 4.2A10.5 10.5 0 0 1 30 0c4 0 7.5 2.2 9.4 5.5A8.8 8.8 0 0 1 43 4.7c4.8 0 8.7 3.9 8.7 8.8 0 4.8-3.9 8.7-8.7 8.7H10.5A10.5 10.5 0 0 1 0 11.7C0 5.8 4.7 1 10.5 1c1 0 2 .1 2.9.4A11.7 11.7 0 0 1 21.7 4.2Z" fill="var(--brand-primary)"/>
+              </svg>
+            </div>
+          ) : (
+            <div className="leading-tight">
+              <p className="text-[10px] font-bold tracking-[0.18em] uppercase mb-0.5" style={{ color: "var(--brand-text-muted)" }}>
+                Executive Briefing
+              </p>
+              <p className="font-display text-[1rem] font-black leading-none group-hover:text-[var(--brand-primary)] transition-colors duration-200" style={{ color: "var(--brand-text-heading)" }}>
+                {ACCOUNT.company}
+              </p>
+            </div>
+          )}
         </Link>
 
         <div className="relative" ref={menuRef}>
