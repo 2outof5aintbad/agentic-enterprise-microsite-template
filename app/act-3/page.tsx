@@ -59,7 +59,6 @@ export default function Act3Page() {
         <div className="max-w-6xl mx-auto px-6 py-20">
           <FadeIn>
             <SectionHeader eyebrow={scenario.eyebrow} eyebrowVariant="outline" headline={scenario.title} subtext={scenario.subtitle} maxWidthClass="max-w-2xl" />
-            <p className="text-sm -mt-8 mb-10" style={{ color: "var(--brand-text-muted)", opacity: 0.6 }}>Click any step to expand details.</p>
           </FadeIn>
           <FadeIn delay={100}><AgenticFlow steps={scenario.steps} /></FadeIn>
         </div>
