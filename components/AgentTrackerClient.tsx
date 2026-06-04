@@ -217,8 +217,8 @@ function AgentModal({ agent, onClose }: { agent: Agent; onClose: () => void }) {
             <p className="text-xs text-black/35 leading-snug max-w-xs">Questions about this agent? Reach out to the account team.</p>
             <a
               href="/account-team"
-              className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white font-bold text-sm transition-all duration-200 hover:-translate-y-0.5"
-              style={{ background: "var(--brand-primary)" }}
+              className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 hover:-translate-y-0.5"
+              style={{ background: "var(--brand-primary)", color: "var(--brand-text-on-primary)" }}
             >
               Account Team
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>

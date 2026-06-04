@@ -108,8 +108,8 @@ function FeaturedCard({ video, onPlay }: { video: DemoVideo; onPlay: () => void 
 
         {/* Featured badge */}
         <div className="absolute top-4 left-4">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--brand-primary)] text-white text-[0.6rem] font-bold tracking-widest uppercase shadow-lg">
-            <span className="w-1.5 h-1.5 rounded-full bg-white/70" />
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--brand-primary)] text-[0.6rem] font-bold tracking-widest uppercase shadow-lg" style={{ color: "var(--brand-text-on-primary)" }}>
+            <span className="w-1.5 h-1.5 rounded-full opacity-70" style={{ background: "var(--brand-text-on-primary)" }} />
             Featured
           </span>
         </div>
@@ -207,9 +207,10 @@ export default function DemoLibrary({ videos }: { videos: DemoVideo[] }) {
             onClick={() => setFilter(id)}
             className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${
               filter === id
-                ? "bg-[var(--brand-primary)] text-white shadow-md shadow-[var(--brand-primary)]/25"
+                ? "bg-[var(--brand-primary)] shadow-md shadow-[var(--brand-primary)]/25"
                 : "bg-white border border-black/10 text-[#3D3D3D] hover:border-[var(--brand-primary)]/30 hover:text-[var(--brand-primary)]"
             }`}
+            style={filter === id ? { color: "var(--brand-text-on-primary)" } : {}}
           >
             {label}
           </button>

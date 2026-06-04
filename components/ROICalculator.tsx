@@ -124,11 +124,11 @@ export default function ROICalculator() {
             <path d="M-50 180 Q100 80 200 130 Q300 180 450 80" stroke="white" strokeWidth="100" strokeLinecap="round" fill="none" opacity="0.08"/>
           </svg>
           <div className="relative">
-            <p className="text-[0.65rem] font-bold tracking-[0.18em] uppercase text-white/70 mb-3">{cfg.totalLabel}</p>
-            <p className="font-display text-6xl sm:text-7xl font-black text-white leading-none tabular-nums transition-all duration-300">
+            <p className="text-[0.65rem] font-bold tracking-[0.18em] uppercase mb-3" style={{ color: "var(--brand-text-on-primary-muted)" }}>{cfg.totalLabel}</p>
+            <p className="font-display text-6xl sm:text-7xl font-black leading-none tabular-nums transition-all duration-300" style={{ color: "var(--brand-text-on-primary)" }}>
               {formatDollars(results.total)}
             </p>
-            <p className="text-white/75 text-sm mt-3 leading-relaxed max-w-xs">{cfg.totalSublabel}</p>
+            <p className="text-sm mt-3 leading-relaxed max-w-xs" style={{ color: "var(--brand-text-on-primary-muted)" }}>{cfg.totalSublabel}</p>
           </div>
         </div>
 

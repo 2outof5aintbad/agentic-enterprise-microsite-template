@@ -105,7 +105,7 @@ export default function ArchitecturePage() {
                         className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
                         style={{ background: `color-mix(in srgb, var(--brand-primary) ${isTop ? "25" : "15"}%, transparent)` }}
                       >
-                        <span className={isTop ? "text-white" : "text-[var(--brand-primary)]"}>
+                        <span style={{ color: "var(--brand-primary)" }}>
                           {LAYER_ICONS[i] ?? LAYER_ICONS[0]}
                         </span>
                       </div>
@@ -184,7 +184,8 @@ export default function ArchitecturePage() {
           </div>
           <Link
             href="/strategy"
-            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white font-bold text-base transition-all duration-200 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] font-bold text-base transition-all duration-200 hover:-translate-y-0.5"
+            style={{ color: "var(--brand-text-on-primary)" }}
           >
             See the Framework
             <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden>

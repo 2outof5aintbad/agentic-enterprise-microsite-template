@@ -89,17 +89,17 @@ export default function Act1Page() {
             <FadeIn>
               <div className="mb-12 text-center">
                 <div className="mb-5">
-                  <span className="inline-flex items-center px-3.5 py-1.5 rounded-full border-2 border-white/40 text-white text-[0.65rem] font-bold tracking-[0.18em] uppercase">Business Impact</span>
+                  <span className="inline-flex items-center px-3.5 py-1.5 rounded-full border-2 border-white/40 text-[0.65rem] font-bold tracking-[0.18em] uppercase" style={{ color: "var(--brand-text-on-primary)" }}>Business Impact</span>
                 </div>
-                <h2 className="font-display text-4xl sm:text-5xl font-black text-white tracking-tight leading-[0.95]">The numbers that matter.</h2>
+                <h2 className="font-display text-4xl sm:text-5xl font-black tracking-tight leading-[0.95]" style={{ color: "var(--brand-text-on-primary)" }}>The numbers that matter.</h2>
               </div>
             </FadeIn>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {metrics.map((m, i) => (
                 <FadeIn key={m.label} delay={i * 80}>
                   <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-8 text-center h-full">
-                    <p className="font-display text-4xl font-black text-white mb-2 tabular-nums">{m.value}</p>
-                    <p className="text-sm text-white/85 leading-snug font-medium">{m.label}</p>
+                    <p className="font-display text-4xl font-black mb-2 tabular-nums" style={{ color: "var(--brand-text-on-primary)" }}>{m.value}</p>
+                    <p className="text-sm leading-snug font-medium" style={{ color: "var(--brand-text-on-primary-muted)" }}>{m.label}</p>
                   </div>
                 </FadeIn>
               ))}

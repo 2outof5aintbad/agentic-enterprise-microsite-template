@@ -23,8 +23,8 @@ export default function NextPageFooter({ href, label, sublabel }: NextPageFooter
         </div>
         <Link
           href={href}
-          className="shrink-0 inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-sm text-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
-          style={{ background: "var(--brand-primary)" }}
+          className="shrink-0 inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
+          style={{ background: "var(--brand-primary)", color: "var(--brand-text-on-primary)" }}
         >
           {label}
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>

@@ -83,16 +83,16 @@ export default function HomePage() {
                     The Core Problem
                   </span>
                 </div>
-                <h2 className="font-display text-5xl sm:text-7xl font-black text-white tracking-tight leading-[0.88] mb-5">{gap.headline}</h2>
-                <p className="text-xl text-white/90 font-medium mb-6">{gap.subhead}</p>
-                <p className="text-lg text-white/80 leading-relaxed mb-16 max-w-2xl mx-auto">{gap.body}</p>
+                <h2 className="font-display text-5xl sm:text-7xl font-black tracking-tight leading-[0.88] mb-5" style={{ color: "var(--brand-text-on-primary)" }}>{gap.headline}</h2>
+                <p className="text-xl font-medium mb-6" style={{ color: "var(--brand-text-on-primary-muted)" }}>{gap.subhead}</p>
+                <p className="text-lg leading-relaxed mb-16 max-w-2xl mx-auto" style={{ color: "var(--brand-text-on-primary-muted)" }}>{gap.body}</p>
               </FadeIn>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {gap.stats.map((stat, i) => (
                   <FadeIn key={stat.label} delay={i * 100}>
                     <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-8 text-center">
-                      <p className="font-display text-4xl font-black text-white mb-2 tabular-nums">{stat.value}</p>
-                      <p className="text-base text-white/85 leading-snug font-medium">{stat.label}</p>
+                      <p className="font-display text-4xl font-black mb-2 tabular-nums" style={{ color: "var(--brand-text-on-primary)" }}>{stat.value}</p>
+                      <p className="text-base leading-snug font-medium" style={{ color: "var(--brand-text-on-primary-muted)" }}>{stat.label}</p>
                     </div>
                   </FadeIn>
                 ))}
@@ -207,8 +207,8 @@ export default function HomePage() {
           <div className="flex gap-3 flex-wrap shrink-0">
             <Link
               href={ACCOUNT.cta.primary.href}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full text-white font-bold text-base transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5"
-              style={{ background: "var(--brand-primary)" }}
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-base transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5"
+              style={{ background: "var(--brand-primary)", color: "var(--brand-text-on-primary)" }}
             >
               {ACCOUNT.cta.primary.label}
               <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden>

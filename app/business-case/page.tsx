@@ -83,7 +83,7 @@ export default function BusinessCasePage() {
           <FadeIn delay={200}>
             <div className="bg-[#0A0A0A] rounded-2xl p-8">
               <p className="text-[0.65rem] font-bold tracking-widest uppercase text-white/30 mb-3">Why consolidate</p>
-              <p className="text-xl font-display font-black text-white mb-3 leading-snug">
+              <p className="text-xl font-display font-black mb-3 leading-snug" style={{ color: "var(--brand-text-on-primary)" }}>
                 Separate conversations become separate procurement cycles, separate stakeholder alignments, and separate timelines.
               </p>
               <p className="text-base text-white/60 leading-relaxed">
@@ -102,7 +102,7 @@ export default function BusinessCasePage() {
               <div className="mb-5">
                 <span className="eyebrow-pill">The Value at Stake</span>
               </div>
-              <h2 className="font-display text-4xl sm:text-5xl font-black text-white tracking-tight leading-[0.95] mb-4 max-w-2xl">
+              <h2 className="font-display text-4xl sm:text-5xl font-black tracking-tight leading-[0.95] mb-4 max-w-2xl" style={{ color: "var(--brand-text-on-primary)" }}>
                 This is what inaction costs.
               </h2>
             </div>
@@ -113,7 +113,7 @@ export default function BusinessCasePage() {
               <FadeIn key={v.label} delay={i * 80}>
                 <div className="border border-white/8 rounded-2xl p-7 h-full bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-200">
                   <p className="text-xs font-bold tracking-widest uppercase text-[var(--brand-primary)]/70 mb-3">{v.label}</p>
-                  <p className="font-display text-5xl font-black text-white mb-3">{v.value}</p>
+                  <p className="font-display text-5xl font-black mb-3" style={{ color: "var(--brand-text-on-primary)" }}>{v.value}</p>
                   <p className="text-sm text-white/55 leading-relaxed">{v.description}</p>
                 </div>
               </FadeIn>
@@ -133,19 +133,19 @@ export default function BusinessCasePage() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
                   <div className="mb-6">
-                    <span className="inline-flex items-center px-3.5 py-1.5 rounded-full border-2 border-white/40 text-white text-[0.65rem] font-bold tracking-[0.18em] uppercase">
+                    <span className="inline-flex items-center px-3.5 py-1.5 rounded-full border-2 border-white/40 text-[0.65rem] font-bold tracking-[0.18em] uppercase" style={{ color: "var(--brand-text-on-primary)" }}>
                       Unique Position
                     </span>
                   </div>
-                  <h2 className="font-display text-4xl sm:text-5xl font-black text-white leading-tight tracking-tight mb-5">
+                  <h2 className="font-display text-4xl sm:text-5xl font-black leading-tight tracking-tight mb-5" style={{ color: "var(--brand-text-on-primary)" }}>
                     Why this account is different.
                   </h2>
-                  <p className="text-lg text-white/80 leading-relaxed">{businessCase.clientZeroNote}</p>
+                  <p className="text-lg leading-relaxed" style={{ color: "var(--brand-text-on-primary-muted)" }}>{businessCase.clientZeroNote}</p>
                 </div>
                 {businessCase.windowNote && (
                   <div className="bg-white/10 border border-white/20 rounded-2xl p-8">
-                    <p className="text-[0.65rem] font-bold tracking-widest uppercase text-white/50 mb-3">The Window</p>
-                    <p className="text-base text-white/90 leading-relaxed">{businessCase.windowNote}</p>
+                    <p className="text-[0.65rem] font-bold tracking-widest uppercase mb-3" style={{ color: "var(--brand-text-on-primary-subtle)" }}>The Window</p>
+                    <p className="text-base leading-relaxed" style={{ color: "var(--brand-text-on-primary-muted)" }}>{businessCase.windowNote}</p>
                   </div>
                 )}
               </div>
@@ -164,7 +164,8 @@ export default function BusinessCasePage() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/pilot"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white font-bold text-base transition-all duration-200 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] font-bold text-base transition-all duration-200 hover:-translate-y-0.5"
+              style={{ color: "var(--brand-text-on-primary)" }}
             >
               See the Pilot Plan
               <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden>

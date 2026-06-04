@@ -17,10 +17,6 @@ export default function ActCard({ number, title, tagline, description, href }: A
     >
       <div className="absolute top-0 left-0 right-0 h-1 rounded-t-[var(--brand-radius)] bg-[var(--brand-primary)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
 
-      <span aria-hidden className="absolute bottom-5 right-6 font-display text-9xl font-black leading-none select-none transition-colors duration-300" style={{ color: "var(--brand-primary)", opacity: 0.05 }}>
-        {number}
-      </span>
-
       <div className="mb-5">
         <span className="eyebrow-pill">{number}</span>
       </div>

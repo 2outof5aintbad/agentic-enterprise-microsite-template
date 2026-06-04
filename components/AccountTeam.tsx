@@ -170,9 +170,10 @@ export default function AccountTeam({ members }: Props) {
               onClick={() => setFilter(id)}
               className={`w-24 py-2 rounded-full text-sm font-semibold text-center transition-all duration-150 ${
                 filter === id
-                  ? "bg-[var(--brand-primary)] text-white shadow-md shadow-[var(--brand-primary)]/25"
+                  ? "bg-[var(--brand-primary)] shadow-md shadow-[var(--brand-primary)]/25"
                   : "border text-[var(--brand-text-muted)] hover:border-[var(--brand-primary)]/40 hover:text-[var(--brand-primary)]"
               }`}
+              style={filter === id ? { color: "var(--brand-text-on-primary)" } : {}}
             >
               {label}
             </button>

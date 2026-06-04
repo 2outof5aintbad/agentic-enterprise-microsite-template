@@ -50,8 +50,8 @@ export default function AgentSimTeaser() {
                 href={cfg.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full text-white font-bold text-base transition-all duration-200 hover:shadow-2xl hover:-translate-y-0.5"
-                style={{ background: "var(--brand-primary)" }}
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-base transition-all duration-200 hover:shadow-2xl hover:-translate-y-0.5"
+                style={{ background: "var(--brand-primary)", color: "var(--brand-text-on-primary)" }}
               >
                 {cfg.ctaLabel}
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>

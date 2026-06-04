@@ -147,7 +147,8 @@ export default function StrategyPage() {
           </div>
           <Link
             href="/proof"
-            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white font-bold text-base transition-all duration-200 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] font-bold text-base transition-all duration-200 hover:-translate-y-0.5"
+            style={{ color: "var(--brand-text-on-primary)" }}
           >
             See the Results
             <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden>

@@ -38,25 +38,34 @@ export default function AgenticFlow({ steps }: Props) {
               }`}
             >
               {/* Step number */}
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black transition-all duration-300 ${
-                isActive
-                  ? isAuto ? "bg-[var(--brand-primary)] text-white shadow-lg shadow-[var(--brand-primary)]/40" : "bg-amber-500 text-white"
-                  : "bg-white border border-black/10 text-[#3D3D3D] group-hover:border-[var(--brand-primary)]/30 group-hover:text-[var(--brand-primary)]"
-              }`}>
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black transition-all duration-300 ${
+                  isActive
+                    ? isAuto ? "bg-[var(--brand-primary)] shadow-lg shadow-[var(--brand-primary)]/40" : "bg-amber-500 text-white"
+                    : "bg-white border border-black/10 text-[#3D3D3D] group-hover:border-[var(--brand-primary)]/30 group-hover:text-[var(--brand-primary)]"
+                }`}
+                style={isActive && isAuto ? { color: "var(--brand-text-on-primary)" } : {}}
+              >
                 {step.step}
               </div>
 
               {/* Agent name */}
-              <p className={`text-[0.65rem] font-bold tracking-wider uppercase leading-tight transition-colors duration-200 ${
-                isActive ? (isAuto ? "text-white/70" : "text-amber-700") : "text-black/40 group-hover:text-black/60"
-              }`}>
+              <p
+                className={`text-[0.65rem] font-bold tracking-wider uppercase leading-tight transition-colors duration-200 ${
+                  isActive ? (isAuto ? "" : "text-amber-700") : "text-black/40 group-hover:text-black/60"
+                }`}
+                style={isActive && isAuto ? { color: "var(--brand-text-on-primary-subtle)" } : {}}
+              >
                 {step.agent}
               </p>
 
               {/* Title */}
-              <p className={`text-xs font-bold leading-snug transition-colors duration-200 ${
-                isActive ? (isAuto ? "text-white" : "text-amber-900") : "text-[#0A0A0A] group-hover:text-[var(--brand-primary)]"
-              }`}>
+              <p
+                className={`text-xs font-bold leading-snug transition-colors duration-200 ${
+                  isActive ? (isAuto ? "" : "text-amber-900") : "text-[#0A0A0A] group-hover:text-[var(--brand-primary)]"
+                }`}
+                style={isActive && isAuto ? { color: "var(--brand-text-on-primary)" } : {}}
+              >
                 {step.title}
               </p>
 
@@ -97,10 +106,11 @@ export default function AgenticFlow({ steps }: Props) {
                 className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-black border-2 transition-all duration-300 ${
                   isOpen
                     ? isAuto
-                      ? "bg-[var(--brand-primary)] border-[var(--brand-primary)] text-white shadow-lg shadow-[var(--brand-primary)]/30 scale-110"
+                      ? "bg-[var(--brand-primary)] border-[var(--brand-primary)] shadow-lg shadow-[var(--brand-primary)]/30 scale-110"
                       : "bg-amber-500 border-amber-500 text-white scale-110"
                     : "bg-white border-black/15 text-[#3D3D3D] hover:border-[var(--brand-primary)]/40 hover:text-[var(--brand-primary)]"
                 }`}
+                style={isOpen && isAuto ? { color: "var(--brand-text-on-primary)" } : {}}
               >
                 {isOpen ? (
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>

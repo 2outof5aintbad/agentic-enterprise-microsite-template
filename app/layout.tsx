@@ -10,6 +10,7 @@ import {
 import "./globals.css";
 import { ACCOUNT } from "@/data/account";
 import { THEMES } from "@/lib/themes";
+import { contrastColor } from "@/lib/contrast";
 import StickyNav from "@/components/StickyNav";
 import PageTransition from "@/components/PageTransition";
 import AgentforceChat from "@/components/AgentforceChat";
@@ -36,6 +37,7 @@ const FONT_PAIRINGS = {
 };
 
 const activePairing = FONT_PAIRINGS[ACCOUNT.brand.fonts ?? "editorial"];
+const textOnPrimary = contrastColor(ACCOUNT.brand.primary);
 const activeTheme = THEMES[ACCOUNT.brand.theme ?? "dark"];
 
 const DENSITY_TOKENS = {
@@ -72,6 +74,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       style={{
         ["--brand-primary" as string]:        ACCOUNT.brand.primary,
         ["--brand-primary-dark" as string]:   ACCOUNT.brand.primaryDark,
+        ["--brand-text-on-primary" as string]:         textOnPrimary,
+        ["--brand-text-on-primary-muted" as string]:   textOnPrimary === "#FFFFFF" ? "rgba(255,255,255,0.80)" : "rgba(0,0,0,0.65)",
+        ["--brand-text-on-primary-subtle" as string]:  textOnPrimary === "#FFFFFF" ? "rgba(255,255,255,0.55)" : "rgba(0,0,0,0.45)",
         ["--brand-bg" as string]:             ACCOUNT.brand.bg ?? activeTheme.bg,
         ["--brand-light" as string]:          ACCOUNT.brand.light ?? activeTheme.light,
         ["--brand-text" as string]:           activeTheme.text,

@@ -42,9 +42,10 @@ export default function UseCasesPage() {
                 onClick={() => setActiveId(uc.id)}
                 className={`px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-150 ${
                   activeId === uc.id
-                    ? "bg-[var(--brand-primary)] text-white shadow-md"
+                    ? "bg-[var(--brand-primary)] shadow-md"
                     : "border border-white/15 text-white/60 hover:text-white hover:border-white/30"
                 }`}
+                style={activeId === uc.id ? { color: "var(--brand-text-on-primary)" } : {}}
               >
                 {uc.title}
               </button>
@@ -169,7 +170,8 @@ export default function UseCasesPage() {
           </div>
           <Link
             href="/pilot"
-            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white font-bold text-base transition-all duration-200 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] font-bold text-base transition-all duration-200 hover:-translate-y-0.5"
+            style={{ color: "var(--brand-text-on-primary)" }}
           >
             See the Pilot Plan
             <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden>

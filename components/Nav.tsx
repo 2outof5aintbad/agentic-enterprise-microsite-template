@@ -111,7 +111,7 @@ export default function Nav() {
                       className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-150 ${
                         active ? "bg-[var(--brand-primary)]" : "hover:bg-[var(--brand-surface)]"
                       }`}
-                      style={{ color: active ? "white" : "var(--brand-text-muted)" }}
+                      style={{ color: active ? "var(--brand-text-on-primary)" : "var(--brand-text-muted)" }}
                     >
                       {label}
                       {active && (
@@ -128,7 +128,8 @@ export default function Nav() {
                   <div className="h-px bg-white/8 mb-2" />
                   <Link
                     href="/account-team"
-                    className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] text-white font-bold text-sm transition-all duration-150"
+                    className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-[var(--brand-primary)] hover:bg-[var(--brand-primary-dark)] font-bold text-sm transition-all duration-150"
+                    style={{ color: "var(--brand-text-on-primary)" }}
                     onClick={() => setOpen(false)}
                   >
                     {ACCOUNT.cta.primary.label}

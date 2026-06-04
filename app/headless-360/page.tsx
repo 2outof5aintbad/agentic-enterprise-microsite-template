@@ -57,7 +57,7 @@ export default function Headless360Page() {
                 </div>
               ))}
               <span className="text-lg font-light mx-1" style={{ color: "var(--brand-text-muted)" }}>=</span>
-              <span className="inline-flex items-center px-4 py-2 rounded-full font-bold text-sm text-white" style={{ background: "var(--brand-primary)" }}>
+              <span className="inline-flex items-center px-4 py-2 rounded-full font-bold text-sm" style={{ background: "var(--brand-primary)", color: "var(--brand-text-on-primary)" }}>
                 One platform. Any agent.
               </span>
             </div>
@@ -264,7 +264,7 @@ export default function Headless360Page() {
             </div>
           </FadeIn>
           <div className="flex gap-3 flex-wrap shrink-0">
-            <Link href="/account-team" className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full text-white font-bold text-base transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5" style={{ background: "var(--brand-primary)" }}>
+            <Link href="/account-team" className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-base transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5" style={{ background: "var(--brand-primary)", color: "var(--brand-text-on-primary)" }}>
               Meet the Team
               <svg width="16" height="16" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>

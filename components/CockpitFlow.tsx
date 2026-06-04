@@ -32,8 +32,8 @@ function AlertCard({ ui }: { ui: Extract<MockUI, { type: "alert" }> }) {
   return (
     <div className="rounded-xl border-2 border-[var(--brand-primary)]/30 bg-[#FFF5F5] p-5">
       <div className="flex items-center gap-2 mb-3">
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--brand-primary)] text-white text-[0.6rem] font-bold tracking-widest uppercase">
-          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--brand-primary)] text-[0.6rem] font-bold tracking-widest uppercase" style={{ color: "var(--brand-text-on-primary)" }}>
+          <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "var(--brand-text-on-primary)" }} />
           {ui.badge}
         </span>
       </div>
@@ -236,13 +236,16 @@ export default function CockpitFlow({ scenario, steps }: Props) {
                   : "hover:bg-black/4"
               }`}
             >
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-bold text-xs transition-all duration-300 ${
-                activeIndex === i
-                  ? "bg-[var(--brand-primary)] text-white scale-110 shadow-md shadow-[var(--brand-primary)]/30"
-                  : visibleSteps.has(i)
-                  ? "bg-[var(--brand-primary)]/15 text-[var(--brand-primary)]"
-                  : "bg-black/8 text-black/30"
-              }`}>
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 font-bold text-xs transition-all duration-300 ${
+                  activeIndex === i
+                    ? "bg-[var(--brand-primary)] scale-110 shadow-md shadow-[var(--brand-primary)]/30"
+                    : visibleSteps.has(i)
+                    ? "bg-[var(--brand-primary)]/15 text-[var(--brand-primary)]"
+                    : "bg-black/8 text-black/30"
+                }`}
+                style={activeIndex === i ? { color: "var(--brand-text-on-primary)" } : {}}
+              >
                 {step.number}
               </div>
               <span className={`text-sm font-semibold transition-colors duration-200 leading-none ${
@@ -269,11 +272,14 @@ export default function CockpitFlow({ scenario, steps }: Props) {
             >
               {/* Card header */}
               <div className={`flex items-start gap-4 p-6 pb-5 ${activeIndex === i ? "bg-white" : "bg-white"}`}>
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 font-bold text-sm transition-all duration-300 ${
-                  activeIndex === i
-                    ? "bg-[var(--brand-primary)] text-white shadow-md shadow-[var(--brand-primary)]/30"
-                    : "bg-[#F5F2EE] text-[#3D3D3D]"
-                }`}>
+                <div
+                  className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 font-bold text-sm transition-all duration-300 ${
+                    activeIndex === i
+                      ? "bg-[var(--brand-primary)] shadow-md shadow-[var(--brand-primary)]/30"
+                      : "bg-[#F5F2EE] text-[#3D3D3D]"
+                  }`}
+                  style={activeIndex === i ? { color: "var(--brand-text-on-primary)" } : {}}
+                >
                   {step.number}
                 </div>
                 <div className="flex-1 min-w-0">
