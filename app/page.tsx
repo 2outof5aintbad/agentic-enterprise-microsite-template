@@ -128,7 +128,7 @@ export default function HomePage() {
       )}
 
       {/* ── Three Chapters ── */}
-      <section id="acts" style={{ background: "var(--brand-light)" }}>
+      <section id="acts" style={{ background: "var(--brand-section-alt)", borderTop: "1px solid var(--brand-surface-border)" }}>
         <div className="max-w-6xl mx-auto px-6 py-24">
           <FadeIn>
             <SectionHeader
