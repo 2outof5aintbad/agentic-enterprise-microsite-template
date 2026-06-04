@@ -12,7 +12,7 @@ export default function ProofPage() {
   const [openId, setOpenId] = useState<string | null>(proof.functions[0]?.id ?? null);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#0A0A0A]">
       <Nav />
 
       {/* Hero */}
@@ -35,7 +35,7 @@ export default function ProofPage() {
       </section>
 
       {/* Function accordions */}
-      <section className="border-t" style={{ background: "var(--brand-section-alt)", borderColor: "var(--brand-surface-border)" }}>
+      <section className="bg-[#0A0A0A]">
         <div className="max-w-6xl mx-auto px-6 py-16 space-y-4">
           {proof.functions.map((fn, i) => {
             const isOpen = openId === fn.id;
@@ -156,7 +156,7 @@ export default function ProofPage() {
       </section>
 
       {/* Cross-link to business case */}
-      <section className="border-t" style={{ background: "var(--brand-bg)", borderColor: "var(--brand-surface-border)" }}>
+      <section className="bg-[#0A0A0A] border-t border-white/6">
         <div className="max-w-6xl mx-auto px-6 py-16 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <p className="text-sm text-white/40 mb-1">Next</p>

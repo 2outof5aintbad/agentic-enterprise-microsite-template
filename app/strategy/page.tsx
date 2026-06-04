@@ -11,7 +11,7 @@ export default function StrategyPage() {
   const { strategy } = ACCOUNT;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#0A0A0A]">
       <Nav />
 
       {/* Hero */}

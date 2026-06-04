@@ -151,7 +151,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Explore Further ── */}
-      <section className="border-t" style={{ background: "var(--brand-bg)", borderColor: "var(--brand-surface-border)" }}>
+      <section className="border-t" style={{ background: "var(--brand-section-alt)", borderColor: "var(--brand-surface-border)" }}>
         <div className="max-w-6xl mx-auto px-6 py-24">
           <FadeIn>
             <SectionHeader

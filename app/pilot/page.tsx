@@ -12,7 +12,7 @@ export default function PilotPage() {
   const { pilotPlan, cta } = ACCOUNT;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#0A0A0A]">
       <Nav />
 
       {/* Hero */}
@@ -49,7 +49,7 @@ export default function PilotPage() {
       </section>
 
       {/* Pilot phases */}
-      <section className="border-t" style={{ background: "var(--brand-section-alt)", borderColor: "var(--brand-surface-border)" }}>
+      <section className="bg-[#0A0A0A]">
         <div className="max-w-6xl mx-auto px-6 py-16">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {pilotPlan.phases.map((phase, i) => (

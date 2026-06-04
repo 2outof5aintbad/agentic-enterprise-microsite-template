@@ -13,7 +13,7 @@ export default function UseCasesPage() {
   const active = useCases.cases.find((uc) => uc.id === activeId)!;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#0A0A0A]">
       <Nav />
 
       {/* Hero */}
@@ -33,7 +33,7 @@ export default function UseCasesPage() {
       </section>
 
       {/* Interactive use case selector */}
-      <section className="border-t" style={{ background: "var(--brand-bg)", borderColor: "var(--brand-surface-border)" }}>
+      <section className="bg-[#0A0A0A]">
         <div className="max-w-6xl mx-auto px-6 py-16">
           <div className="flex gap-2 flex-wrap mb-10">
             {useCases.cases.map((uc) => (
@@ -138,7 +138,7 @@ export default function UseCasesPage() {
       </section>
 
       {/* Value levers */}
-      <section className="border-t" style={{ background: "var(--brand-section-alt)", borderColor: "var(--brand-surface-border)" }}>
+      <section className="bg-[#0A0A0A]">
         <div className="max-w-6xl mx-auto px-6 py-24">
           <FadeIn>
             <div className="mb-12">
@@ -162,7 +162,7 @@ export default function UseCasesPage() {
       </section>
 
       {/* Nav to pilot */}
-      <section className="border-t" style={{ background: "var(--brand-bg)", borderColor: "var(--brand-surface-border)" }}>
+      <section className="bg-[#0A0A0A] border-t border-white/6">
         <div className="max-w-6xl mx-auto px-6 py-16 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <p className="text-sm text-white/40 mb-1">Next</p>

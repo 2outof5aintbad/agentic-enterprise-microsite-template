@@ -12,7 +12,7 @@ export default function BusinessCasePage() {
   const { businessCase, gap } = ACCOUNT;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#0A0A0A]">
       <Nav />
 
       <Hero
@@ -81,7 +81,7 @@ export default function BusinessCasePage() {
           </div>
 
           <FadeIn delay={200}>
-            <div className="rounded-2xl p-8" style={{ background: "var(--brand-surface)", border: "1px solid var(--brand-surface-border)" }}>
+            <div className="bg-[#0A0A0A] rounded-2xl p-8">
               <p className="text-[0.65rem] font-bold tracking-widest uppercase text-white/30 mb-3">Why consolidate</p>
               <p className="text-xl font-display font-black mb-3 leading-snug" style={{ color: "var(--brand-text-on-primary)" }}>
                 Separate conversations become separate procurement cycles, separate stakeholder alignments, and separate timelines.
@@ -95,7 +95,7 @@ export default function BusinessCasePage() {
       </section>
 
       {/* Value Unlocked */}
-      <section className="border-t" style={{ background: "var(--brand-section-alt)", borderColor: "var(--brand-surface-border)" }}>
+      <section className="bg-[#0A0A0A]">
         <div className="max-w-6xl mx-auto px-6 py-24">
           <FadeIn>
             <div className="mb-14">
@@ -124,7 +124,7 @@ export default function BusinessCasePage() {
 
       {/* What makes this account different */}
       {businessCase.clientZeroNote && (
-        <section className="border-t" style={{ background: "var(--brand-bg)", borderColor: "var(--brand-surface-border)" }}>
+        <section className="border-t" style={{ background: "var(--brand-section-alt)", borderColor: "var(--brand-surface-border)" }}>
           <div className="max-w-6xl mx-auto px-6 py-24">
             <FadeIn>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
@@ -153,7 +153,7 @@ export default function BusinessCasePage() {
       )}
 
       {/* CTA */}
-      <section className="border-t" style={{ background: "var(--brand-bg)", borderColor: "var(--brand-surface-border)" }}>
+      <section className="bg-[#0A0A0A] border-t border-white/6">
         <div className="max-w-6xl mx-auto px-6 py-16 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <p className="text-sm text-white/40 mb-1">Next</p>
