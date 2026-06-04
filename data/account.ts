@@ -1052,65 +1052,191 @@ export const ACCOUNT = {
 
   // ── ROI Calculator (optional) ─────────────────────────────────────────────
   // Add "roi-calculator" to pages[] above to enable the page.
-  // Fully config-driven: define your sliders and a calculate() function that
-  // returns a total + breakdown array. Labels and numbers are account-specific.
+  // Define up to 4 scenarios — each has its own sliders, formula, and assumptions.
+  // The calculator shows a scenario picker at the top and switches the whole model.
   roi: {
-    pageHeadline: "What does Agentforce\nactually cost you?",
-    pageSubhead: "Adjust the sliders to reflect your organization and see the estimated annual value.",
-    totalLabel: "Estimated Annual Value",
-    totalSublabel: "Based on your inputs — illustrative, not a commitment.",
+    pageHeadline: "What does Agentforce\nactually unlock?",
+    pageSubhead: "Choose a scenario, adjust the inputs, and see the estimated annual value.",
     disclaimer: "Estimates based on Agentforce benchmarks and industry data. For illustrative purposes only. Actual results vary by deployment scope, adoption, and organizational complexity.",
-    primarySlider: {
-      label: "TODO: Primary metric — e.g. 'Field Reps' or 'Key Account Managers'",
-      sublabel: "TODO: Sublabel — e.g. 'Active field reps across all territories'",
-      min: 10, max: 500, step: 5, default: 100,
-      format: (v: number) => v.toLocaleString(),
-    } as ROISlider,
-    secondarySlider: {
-      label: "TODO: Secondary metric — e.g. 'Hours per Review' or 'Prep Time'",
-      sublabel: "TODO: Sublabel",
-      min: 1, max: 20, step: 1, default: 8,
-      format: (v: number) => `${v} hrs`,
-    } as ROISlider,
-    tertiarySlider: {
-      label: "TODO: Tertiary metric — e.g. 'Monthly Service Interactions'",
-      sublabel: "TODO: Sublabel",
-      min: 100, max: 10000, step: 100, default: 2000,
-      format: (v: number) => v.toLocaleString(),
-    } as ROISlider,
-    // Return total (dollars) + up to 4 breakdown cards
-    calculate: (primary: number, secondary: number, tertiary: number): {
-      total: number;
-      breakdown: { label: string; value: string; sub?: string }[];
-    } => {
-      // TODO: Replace with account-specific formula
-      const timeSavings = primary * secondary * 4 * 85;
-      const automation = tertiary * 12 * 0.35 * 15;
-      const total = timeSavings + automation;
-      const fmt = (n: number) => n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(1)}M` : `$${Math.round(n / 1000)}K`;
-      return {
-        total,
-        breakdown: [
-          { label: "Time Value", value: fmt(timeSavings), sub: `${(primary * secondary * 4).toLocaleString()} hours recovered/yr` },
-          { label: "Automation Savings", value: fmt(automation), sub: `${Math.round(tertiary * 12 * 0.35).toLocaleString()} interactions/yr` },
-          { label: "Prep Reduction", value: `${Math.round(((secondary - 0.33) / secondary) * 100)}%`, sub: `From ${secondary} hrs → ~20 min` },
-          { label: "Additional Capacity", value: `+${(primary * 2).toLocaleString()}`, sub: "Accounts each rep can actively manage" },
-        ],
-      };
-    },
-    assumptions: [
+    scenarios: [
       {
-        title: "TODO: Assumption group 1 — e.g. 'Rep Productivity'",
-        items: [
-          "TODO: Assumption 1 — e.g. '4 reviews per rep per year'",
-          "TODO: Assumption 2 — e.g. 'Agentforce reduces prep to ~20 minutes'",
+        id: "cost-savings",
+        label: "Cost Savings",
+        description: "Reduce manual overhead and operational costs",
+        totalLabel: "Estimated Annual Savings",
+        totalSublabel: "Labor and operational cost reduction — based on your inputs.",
+        primarySlider: {
+          label: "Field Reps or KAMs",
+          sublabel: "Active reps across all territories",
+          min: 10, max: 1000, step: 10, default: 150,
+          format: (v: number) => v.toLocaleString(),
+        } as ROISlider,
+        secondarySlider: {
+          label: "Manual Hours per Rep per Month",
+          sublabel: "Admin, reporting, and prep time that could be automated",
+          min: 2, max: 40, step: 1, default: 12,
+          format: (v: number) => `${v} hrs`,
+        } as ROISlider,
+        tertiarySlider: {
+          label: "Fully-Loaded Hourly Cost",
+          sublabel: "Burdened cost per rep including benefits and overhead",
+          min: 40, max: 200, step: 5, default: 85,
+          format: (v: number) => `$${v}`,
+        } as ROISlider,
+        calculate: (reps: number, hrs: number, rate: number) => {
+          const hoursRecovered = reps * hrs * 12 * 0.65;
+          const laborSavings   = hoursRecovered * rate;
+          const overhead       = reps * 800;
+          const total          = laborSavings + overhead;
+          const fmt = (n: number) => n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(1)}M` : `$${Math.round(n / 1_000)}K`;
+          return {
+            total,
+            breakdown: [
+              { label: "Labor Recovered",   value: fmt(laborSavings), sub: `${Math.round(hoursRecovered).toLocaleString()} hours/yr freed` },
+              { label: "Overhead Reduction", value: fmt(overhead),     sub: "Reporting, coordination, admin" },
+              { label: "Time Saved / Rep",   value: `${Math.round(hrs * 0.65)} hrs/mo`, sub: "Per rep, per month" },
+              { label: "Automation Rate",    value: "65%",              sub: "Of manual tasks automated" },
+            ],
+          };
+        },
+        assumptions: [
+          {
+            title: "Labor Recovery",
+            items: [
+              "Agentforce automates ~65% of manual admin, prep, and reporting tasks",
+              "Fully-burdened rate includes salary, benefits, and overhead",
+              "12 working months per year",
+            ],
+          },
+          {
+            title: "Overhead",
+            items: [
+              "$800/rep/yr in coordination and tooling overhead reduced",
+              "Does not include one-time implementation savings",
+            ],
+          },
         ],
       },
       {
-        title: "TODO: Assumption group 2 — e.g. 'Service Automation'",
-        items: [
-          "TODO: Assumption 1 — e.g. '35% of interactions resolved autonomously'",
-          "TODO: Assumption 2 — e.g. '$15 fully-loaded cost per manual interaction'",
+        id: "revenue-growth",
+        label: "Revenue Growth",
+        description: "Expand capacity and improve close rates with AI",
+        totalLabel: "Estimated Annual Revenue Uplift",
+        totalSublabel: "Based on capacity expansion and improved conversion — illustrative.",
+        primarySlider: {
+          label: "Sales Reps",
+          sublabel: "Quota-carrying reps on the platform",
+          min: 10, max: 500, step: 5, default: 80,
+          format: (v: number) => v.toLocaleString(),
+        } as ROISlider,
+        secondarySlider: {
+          label: "Average Deal Size",
+          sublabel: "Average contract value across your book",
+          min: 10000, max: 500000, step: 5000, default: 75000,
+          format: (v: number) => v >= 1000 ? `$${Math.round(v / 1000)}K` : `$${v}`,
+        } as ROISlider,
+        tertiarySlider: {
+          label: "Current Win Rate",
+          sublabel: "Percentage of qualified opportunities closed",
+          min: 5, max: 60, step: 1, default: 22,
+          format: (v: number) => `${v}%`,
+        } as ROISlider,
+        calculate: (reps: number, dealSize: number, winRate: number) => {
+          const dealsPerRepPerYear    = 18;
+          const capacityLift          = 0.22;   // 22% more accounts per rep
+          const winRateLift           = 0.04;   // +4pp win rate
+          const additionalDeals       = Math.round(reps * dealsPerRepPerYear * capacityLift);
+          const improvedDeals         = Math.round(reps * dealsPerRepPerYear * (winRateLift / (winRate / 100)));
+          const revenueFromCapacity   = additionalDeals  * dealSize;
+          const revenueFromConversion = improvedDeals    * dealSize;
+          const total = revenueFromCapacity + revenueFromConversion;
+          const fmt = (n: number) => n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(1)}M` : `$${Math.round(n / 1_000)}K`;
+          return {
+            total,
+            breakdown: [
+              { label: "Capacity Expansion",    value: fmt(revenueFromCapacity),   sub: `+${additionalDeals} additional deals/yr` },
+              { label: "Conversion Improvement", value: fmt(revenueFromConversion), sub: `+4pp win rate with AI-assisted selling` },
+              { label: "More Accounts / Rep",    value: "+22%",                     sub: "With time freed from admin work" },
+              { label: "New Win Rate",           value: `${Math.min(winRate + 4, 95)}%`, sub: `Up from ${winRate}%` },
+            ],
+          };
+        },
+        assumptions: [
+          {
+            title: "Capacity",
+            items: [
+              "18 deals per rep per year (baseline)",
+              "Agentforce frees ~22% more capacity per rep via automated prep, follow-up, and CRM hygiene",
+            ],
+          },
+          {
+            title: "Conversion",
+            items: [
+              "+4 percentage point win rate improvement from AI-assisted deal coaching and signal detection",
+              "Based on Agentforce Sales Agent benchmarks — actual results vary",
+            ],
+          },
+        ],
+      },
+      {
+        id: "service-efficiency",
+        label: "Service Efficiency",
+        description: "Deflect cases and reduce cost-to-serve",
+        totalLabel: "Estimated Annual Service Savings",
+        totalSublabel: "Case deflection and handle time reduction — based on your inputs.",
+        primarySlider: {
+          label: "Monthly Service Interactions",
+          sublabel: "Cases, inquiries, and support contacts per month",
+          min: 500, max: 50000, step: 500, default: 8000,
+          format: (v: number) => v.toLocaleString(),
+        } as ROISlider,
+        secondarySlider: {
+          label: "Fully-Loaded Cost per Interaction",
+          sublabel: "Agent time, tooling, and overhead per case",
+          min: 5, max: 60, step: 1, default: 18,
+          format: (v: number) => `$${v}`,
+        } as ROISlider,
+        tertiarySlider: {
+          label: "Average Handle Time (minutes)",
+          sublabel: "Current average per case end-to-end",
+          min: 3, max: 45, step: 1, default: 12,
+          format: (v: number) => `${v} min`,
+        } as ROISlider,
+        calculate: (monthly: number, costPerCase: number, handleTime: number) => {
+          const deflectionRate   = 0.42;
+          const handleReduction  = 0.30;
+          const annualVolume     = monthly * 12;
+          const deflectedCases   = Math.round(annualVolume * deflectionRate);
+          const deflectionSaving = deflectedCases * costPerCase;
+          const remainingCases   = annualVolume - deflectedCases;
+          const handleSaving     = remainingCases * (handleTime * handleReduction / 60) * (costPerCase / (handleTime / 60));
+          const total = deflectionSaving + handleSaving;
+          const fmt = (n: number) => n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(1)}M` : `$${Math.round(n / 1_000)}K`;
+          return {
+            total,
+            breakdown: [
+              { label: "Cases Deflected",      value: fmt(deflectionSaving),  sub: `${deflectedCases.toLocaleString()} cases resolved autonomously/yr` },
+              { label: "Handle Time Savings",  value: fmt(handleSaving),      sub: `30% faster on remaining ${remainingCases.toLocaleString()} cases` },
+              { label: "Deflection Rate",      value: "42%",                  sub: "Tier 1 & 2 resolved without agent" },
+              { label: "CSAT Impact",          value: "+18%",                 sub: "Faster resolution, 24/7 availability" },
+            ],
+          };
+        },
+        assumptions: [
+          {
+            title: "Deflection",
+            items: [
+              "42% of Tier 1 and Tier 2 interactions resolved autonomously by Agentforce",
+              "Based on service agent benchmarks — rate varies by case complexity and channel",
+            ],
+          },
+          {
+            title: "Handle Time",
+            items: [
+              "30% reduction in average handle time for agent-assisted cases",
+              "Driven by real-time case summaries, suggested responses, and auto-logging",
+            ],
+          },
         ],
       },
     ],
