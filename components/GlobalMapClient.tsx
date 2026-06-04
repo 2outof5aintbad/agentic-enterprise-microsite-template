@@ -5,11 +5,11 @@ import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps
 import { ACCOUNT } from "@/data/account";
 import type { GlobalMapOU } from "@/data/account";
 
-const GEO_URL  = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
+const GEO_URL    = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json";
 const BASE_SCALE = 130;
 const WORLD_PX   = 2 * Math.PI * BASE_SCALE; // ≈ 816.8 SVG units = 360° longitude
-const SVG_W = 800;
-const SVG_H = 400;
+const SVG_W  = 800;
+const SVG_H  = 500;   // taller SVG — shows ±70° lat comfortably
 const SVG_CX = SVG_W / 2;
 const SVG_CY = SVG_H / 2;
 const MIN_ZOOM = 1;
@@ -146,54 +146,69 @@ export default function GlobalMapClient() {
 
   // ── Pan / zoom state ──────────────────────────────────────────────────────
   const [lon,  setLon]  = useState(15);   // longitude at center of view
+  const [lat,  setLat]  = useState(20);   // latitude at center of view
   const [zoom, setZoom] = useState(1);
 
-  const mapRef      = useRef<HTMLDivElement>(null);
-  const dragRef     = useRef<{ startX: number; startLon: number; t: number; lastX: number } | null>(null);
-  const velRef      = useRef(0);           // degrees/frame momentum
-  const rafRef      = useRef<number | null>(null);
-  const widthRef    = useRef(800);         // container width in screen px
+  const mapRef   = useRef<HTMLDivElement>(null);
+  const dragRef  = useRef<{ startX: number; startY: number; startLon: number; startLat: number; t: number; lastX: number; lastY: number } | null>(null);
+  const velRef   = useRef({ x: 0, y: 0 });
+  const rafRef   = useRef<number | null>(null);
+  const sizeRef  = useRef({ w: 800, h: 500 });
 
-  // Keep container width current
   useEffect(() => {
-    const update = () => { if (mapRef.current) widthRef.current = mapRef.current.getBoundingClientRect().width; };
+    const update = () => {
+      if (mapRef.current) {
+        const r = mapRef.current.getBoundingClientRect();
+        sizeRef.current = { w: r.width, h: r.height };
+      }
+    };
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  // Convert screen pixels → longitude degrees (accounts for SVG scaling + zoom)
   const pxToLon = useCallback((px: number) =>
-    px * (SVG_W / widthRef.current) / zoom * (360 / WORLD_PX),
-  [zoom]);
+    px * (SVG_W / sizeRef.current.w) / zoom * (360 / WORLD_PX), [zoom]);
+
+  // Latitude is non-linear (Mercator) but for small deltas this is a good enough approximation
+  const pxToLat = useCallback((py: number) =>
+    py * (SVG_H / sizeRef.current.h) / zoom * (180 / (Math.PI * BASE_SCALE)), [zoom]);
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     if ((e.target as HTMLElement).closest("button")) return;
     if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
     e.currentTarget.setPointerCapture(e.pointerId);
-    dragRef.current = { startX: e.clientX, startLon: lon, t: e.timeStamp, lastX: e.clientX };
-    velRef.current = 0;
-  }, [lon]);
+    dragRef.current = { startX: e.clientX, startY: e.clientY, startLon: lon, startLat: lat, t: e.timeStamp, lastX: e.clientX, lastY: e.clientY };
+    velRef.current = { x: 0, y: 0 };
+  }, [lon, lat]);
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
     if (!dragRef.current) return;
-    const dx  = e.clientX - dragRef.current.startX;
-    const dt  = e.timeStamp - dragRef.current.t;
-    if (dt > 0) velRef.current = -pxToLon(e.clientX - dragRef.current.lastX) / Math.max(dt / 16, 0.5);
+    const dx = e.clientX - dragRef.current.startX;
+    const dy = e.clientY - dragRef.current.startY;
+    const dt = e.timeStamp - dragRef.current.t;
+    if (dt > 0) {
+      velRef.current.x = -pxToLon(e.clientX - dragRef.current.lastX) / Math.max(dt / 16, 0.5);
+      velRef.current.y =  pxToLat(e.clientY - dragRef.current.lastY) / Math.max(dt / 16, 0.5);
+    }
     dragRef.current.lastX = e.clientX;
+    dragRef.current.lastY = e.clientY;
     dragRef.current.t     = e.timeStamp;
     setLon(dragRef.current.startLon - pxToLon(dx));
-  }, [pxToLon]);
+    setLat(l => Math.max(-60, Math.min(80, dragRef.current!.startLat + pxToLat(dy))));
+  }, [pxToLon, pxToLat]);
 
   const handlePointerUp = useCallback(() => {
     if (!dragRef.current) return;
     dragRef.current = null;
-    let vel = velRef.current;
-    if (Math.abs(vel) < 0.05) return;
+    let vx = velRef.current.x;
+    let vy = velRef.current.y;
+    if (Math.abs(vx) < 0.05 && Math.abs(vy) < 0.05) return;
     const animate = () => {
-      vel *= 0.94;
-      setLon(l => l + vel);
-      if (Math.abs(vel) > 0.008) rafRef.current = requestAnimationFrame(animate);
+      vx *= 0.94; vy *= 0.94;
+      setLon(l => l + vx);
+      setLat(l => Math.max(-60, Math.min(80, l + vy)));
+      if (Math.abs(vx) > 0.008 || Math.abs(vy) > 0.008) rafRef.current = requestAnimationFrame(animate);
       else rafRef.current = null;
     };
     rafRef.current = requestAnimationFrame(animate);
@@ -233,7 +248,7 @@ export default function GlobalMapClient() {
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, [isPlaying, timelineIdx, timeline.length]);
 
-  const replay = () => { setTimelineIdx(0); setIsPlaying(true); setSelectedOU(null); setLon(15); setZoom(1); };
+  const replay = () => { setTimelineIdx(0); setIsPlaying(true); setSelectedOU(null); setLon(15); setLat(20); setZoom(1); };
 
   // ── Country fill ──────────────────────────────────────────────────────────
   const currentFrame  = timeline[timelineIdx];
@@ -283,21 +298,22 @@ export default function GlobalMapClient() {
     setIsPlaying(false);
     const already = selectedOU?.id === ou.id;
     setSelectedOU(already ? null : ou);
-    if (!already && ou.zoom) { setZoom(ou.zoom.zoom); setLon(ou.zoom.coordinates[0]); }
+    if (!already && ou.zoom) { setZoom(ou.zoom.zoom); setLon(ou.zoom.coordinates[0]); setLat(ou.zoom.coordinates[1]); }
   }, [selectedOU, ous]);
 
   const handleOUCardClick = useCallback((ou: GlobalMapOU) => {
     setIsPlaying(false);
     const already = selectedOU?.id === ou.id;
     setSelectedOU(already ? null : ou);
-    if (!already && ou.zoom) { setZoom(ou.zoom.zoom); setLon(ou.zoom.coordinates[0]); }
-    else if (already) { setZoom(1); setLon(15); }
+    if (!already && ou.zoom) { setZoom(ou.zoom.zoom); setLon(ou.zoom.coordinates[0]); setLat(ou.zoom.coordinates[1]); }
+    else if (already) { setZoom(1); setLon(15); setLat(20); }
   }, [selectedOU]);
 
   const frameLive       = Object.values(currentFrame.ouStatus).filter(s => s === "live").length;
   const frameInProgress = Object.values(currentFrame.ouStatus).filter(s => s === "in-progress").length;
 
-  // ── Zoom transform string (scale about SVG center) ────────────────────────
+  // ── Zoom transform — scale about the projected position of (lon, lat) ──────
+  // We scale about SVG center since the projection already centers on (lon, lat)
   const zoomTransform = `translate(${SVG_CX} ${SVG_CY}) scale(${zoom}) translate(${-SVG_CX} ${-SVG_CY})`;
 
   return (
@@ -344,7 +360,7 @@ export default function GlobalMapClient() {
         <div
           ref={mapRef}
           className="relative rounded-3xl border border-white/10 overflow-hidden flex-1 select-none"
-          style={{ background: "#060d1a", aspectRatio: "2/1", cursor: dragRef.current ? "grabbing" : "grab" }}
+          style={{ background: "#060d1a", aspectRatio: "8/5", cursor: dragRef.current ? "grabbing" : "grab" }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
@@ -390,7 +406,7 @@ export default function GlobalMapClient() {
           {/* Reset zoom */}
           {zoom > 1.2 && (
             <button
-              onClick={() => { setZoom(1); setLon(15); setSelectedOU(null); }}
+              onClick={() => { setZoom(1); setLon(15); setLat(20); setSelectedOU(null); }}
               className="absolute bottom-4 left-4 z-20 px-3 py-1.5 rounded-full text-xs font-bold border border-white/20 text-white/60 hover:text-white hover:border-white/40 transition-all"
               style={{ background: "rgba(0,0,0,0.6)" }}
             >
@@ -401,7 +417,7 @@ export default function GlobalMapClient() {
           {/* The map — 3 tiling copies */}
           <ComposableMap
             projection="geoMercator"
-            projectionConfig={{ scale: BASE_SCALE, rotate: [-lon, 0, 0], center: [0, 0] }}
+            projectionConfig={{ scale: BASE_SCALE, rotate: [-lon, 0, 0], center: [0, lat] }}
             width={SVG_W}
             height={SVG_H}
             style={{ width: "100%", height: "100%", display: "block" }}
@@ -467,7 +483,7 @@ export default function GlobalMapClient() {
         {/* ── Detail panel ── */}
         <div className="hidden lg:block shrink-0 overflow-y-auto" style={{ width: "260px", maxHeight: "100%" }}>
           {selectedOU ? (
-            <OUDetail ou={selectedOU} future={isFutureFrame} onClose={() => { setSelectedOU(null); setZoom(1); setLon(15); }} />
+            <OUDetail ou={selectedOU} future={isFutureFrame} onClose={() => { setSelectedOU(null); setZoom(1); setLon(15); setLat(20); }} />
           ) : (
             <div className="h-full min-h-[200px] rounded-2xl border border-white/8 flex flex-col items-center justify-center gap-3 p-5 text-center" style={{ background: "rgba(255,255,255,0.02)" }}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden><circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.15)" strokeWidth="1.2"/><path d="M12 8v5M12 15h.01" stroke="rgba(255,255,255,0.25)" strokeWidth="1.4" strokeLinecap="round"/></svg>
@@ -521,7 +537,7 @@ export default function GlobalMapClient() {
 
       {selectedOU && (
         <div className="lg:hidden">
-          <OUDetail ou={selectedOU} future={isFutureFrame} onClose={() => { setSelectedOU(null); setZoom(1); setLon(15); }} />
+          <OUDetail ou={selectedOU} future={isFutureFrame} onClose={() => { setSelectedOU(null); setZoom(1); setLon(15); setLat(20); }} />
         </div>
       )}
     </div>
