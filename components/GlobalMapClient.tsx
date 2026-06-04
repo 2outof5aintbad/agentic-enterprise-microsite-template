@@ -177,7 +177,6 @@ export default function GlobalMapClient() {
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     if ((e.target as HTMLElement).closest("button")) return;
     if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
-    e.currentTarget.setPointerCapture(e.pointerId);
     dragRef.current = { startX: e.clientX, startY: e.clientY, startLon: lon, startLat: lat, t: e.timeStamp, lastX: e.clientX, lastY: e.clientY, moved: false };
     velRef.current = { x: 0, y: 0 };
   }, [lon, lat]);
