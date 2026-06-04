@@ -149,11 +149,11 @@ export default function GlobalMapClient() {
   const [lat,  setLat]  = useState(20);   // latitude at center of view
   const [zoom, setZoom] = useState(1);
 
-  const mapRef   = useRef<HTMLDivElement>(null);
-  const dragRef  = useRef<{ startX: number; startY: number; startLon: number; startLat: number; t: number; lastX: number; lastY: number } | null>(null);
-  const velRef   = useRef({ x: 0, y: 0 });
-  const rafRef   = useRef<number | null>(null);
-  const sizeRef  = useRef({ w: 800, h: 500 });
+  const mapRef      = useRef<HTMLDivElement>(null);
+  const dragRef     = useRef<{ startX: number; startY: number; startLon: number; startLat: number; t: number; lastX: number; lastY: number; moved: boolean } | null>(null);
+  const velRef      = useRef({ x: 0, y: 0 });
+  const rafRef      = useRef<number | null>(null);
+  const sizeRef     = useRef({ w: 800, h: 500 });
 
   useEffect(() => {
     const update = () => {
@@ -178,24 +178,31 @@ export default function GlobalMapClient() {
     if ((e.target as HTMLElement).closest("button")) return;
     if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
     e.currentTarget.setPointerCapture(e.pointerId);
-    dragRef.current = { startX: e.clientX, startY: e.clientY, startLon: lon, startLat: lat, t: e.timeStamp, lastX: e.clientX, lastY: e.clientY };
+    dragRef.current = { startX: e.clientX, startY: e.clientY, startLon: lon, startLat: lat, t: e.timeStamp, lastX: e.clientX, lastY: e.clientY, moved: false };
     velRef.current = { x: 0, y: 0 };
   }, [lon, lat]);
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
-    if (!dragRef.current) return;
-    const dx = e.clientX - dragRef.current.startX;
-    const dy = e.clientY - dragRef.current.startY;
-    const dt = e.timeStamp - dragRef.current.t;
+    const d = dragRef.current;
+    if (!d) return;
+    const dx = e.clientX - d.startX;
+    const dy = e.clientY - d.startY;
+    // Only start panning after 4px movement — preserves click behaviour on countries
+    if (!d.moved && Math.sqrt(dx * dx + dy * dy) < 4) return;
+    d.moved = true;
+    const dt = e.timeStamp - d.t;
     if (dt > 0) {
-      velRef.current.x = -pxToLon(e.clientX - dragRef.current.lastX) / Math.max(dt / 16, 0.5);
-      velRef.current.y =  pxToLat(e.clientY - dragRef.current.lastY) / Math.max(dt / 16, 0.5);
+      velRef.current.x = -pxToLon(e.clientX - d.lastX) / Math.max(dt / 16, 0.5);
+      velRef.current.y =  pxToLat(e.clientY - d.lastY) / Math.max(dt / 16, 0.5);
     }
-    dragRef.current.lastX = e.clientX;
-    dragRef.current.lastY = e.clientY;
-    dragRef.current.t     = e.timeStamp;
-    setLon(dragRef.current.startLon - pxToLon(dx));
-    setLat(l => Math.max(-60, Math.min(80, dragRef.current!.startLat + pxToLat(dy))));
+    d.lastX = e.clientX;
+    d.lastY = e.clientY;
+    d.t     = e.timeStamp;
+    // Capture startLon/startLat into locals to avoid race with dragRef nulling
+    const startLon = d.startLon;
+    const startLat = d.startLat;
+    setLon(startLon - pxToLon(dx));
+    setLat(Math.max(-60, Math.min(80, startLat + pxToLat(dy))));
   }, [pxToLon, pxToLat]);
 
   const handlePointerUp = useCallback(() => {
@@ -293,6 +300,8 @@ export default function GlobalMapClient() {
   const handleGeoLeave  = useCallback(() => { setHoveredOU(null); setTooltip(null); }, []);
 
   const handleGeoClick  = useCallback((alpha3: string) => {
+    // Ignore if the user was dragging
+    if (dragRef.current?.moved) return;
     const ou = getOUForCountry(alpha3, ous);
     if (!ou) return;
     setIsPlaying(false);
