@@ -207,6 +207,7 @@ export const ACCOUNT = {
   //   "roi-calculator" — Interactive ROI calculator (requires ACCOUNT.roi)
   //   "innovation"     — Internal innovation showcase (requires ACCOUNT.innovation)
   //   "headless-360"   — Headless 360 platform architecture deep-dive (requires ACCOUNT.headless360)
+  //   "global-map"     — Animated global deployment map (requires ACCOUNT.globalMap)
   //
   pages: [
     "act-1",
@@ -220,6 +221,8 @@ export const ACCOUNT = {
     "pilot",
     "demo-library",
     "account-team",
+    "headless-360",
+    "global-map",
   ] as string[],
 
   // ── Hero ───────────────────────────────────────────────────────────────────
@@ -1167,13 +1170,129 @@ export const ACCOUNT = {
 
   // ── Global Deployment Map (optional) ─────────────────────────────────────
   // Drop GlobalMapClient into any page to show an animated rollout map.
-  // Set to null to disable. Each OU maps country ISO alpha-3 codes to a
-  // region. The timeline animates through deployment stages.
-  globalMap: null as null | {
-    ous:           GlobalMapOU[];
-    timeline:      GlobalMapTimelineFrame[];
-    markers?:      { coordinates: [number, number]; label?: string; fromIndex?: number }[];
-    defaultZoom?:  { coordinates: [number, number]; zoom: number };
+  // Each OU maps country ISO alpha-3 codes to a region. The timeline
+  // animates through deployment stages. Set to null to disable.
+  globalMap: {
+    defaultZoom: { coordinates: [15, 20] as [number, number], zoom: 1 },
+
+    // Operating Units — define your regions, countries, and state narrative
+    ous: [
+      {
+        id: "north-america",
+        label: "North America",
+        status: "live" as const,
+        agentforce: true,
+        countries: ["USA", "CAN", "MEX"],
+        before: "TODO: Fragmented point solutions across the region. No unified view of the customer.",
+        current: "TODO: Full platform live across North America. Data Cloud unified, Agentforce in production.",
+        future: "TODO: Every agent interaction feeds the global intelligence layer.",
+        futureHighlights: [
+          "TODO: Autonomous execution at scale",
+          "TODO: Regional agents share learned patterns globally",
+        ],
+        zoom: { coordinates: [-95, 42] as [number, number], zoom: 3.5 },
+      },
+      {
+        id: "europe",
+        label: "Europe",
+        status: "live" as const,
+        agentforce: false,
+        countries: ["GBR", "DEU", "FRA", "ESP", "ITA", "NLD", "BEL", "SWE", "NOR", "DNK", "FIN", "AUT", "CHE", "PRT", "GRC", "POL", "ROU", "HUN", "CZE", "SVK", "BGR", "HRV", "SVN", "EST", "LVA", "LTU"],
+        before: "TODO: Market-by-market deployments with no shared infrastructure.",
+        current: "TODO: Unified platform across EU. Data residency compliant. Agentforce scoped for H2.",
+        future: "TODO: Pan-European agent network with shared consumer intelligence.",
+        futureHighlights: [
+          "TODO: GDPR-compliant Data Cloud foundation",
+          "TODO: Cross-market insights without data movement",
+        ],
+        zoom: { coordinates: [15, 52] as [number, number], zoom: 4.5 },
+      },
+      {
+        id: "apac",
+        label: "Asia Pacific",
+        status: "in-progress" as const,
+        agentforce: false,
+        countries: ["JPN", "AUS", "KOR", "SGP", "MYS", "THA", "IDN", "VNM", "PHL", "NZL", "IND"],
+        before: "TODO: Each market operating independently. No cross-market data sharing.",
+        current: "TODO: Platform deployment underway across APAC. Japan and Australia leading.",
+        future: "TODO: APAC agents trained on regional consumer behavior patterns.",
+        futureHighlights: [
+          "TODO: Japan and Australia as early Agentforce markets",
+          "TODO: Regional expansion template proven",
+        ],
+        zoom: { coordinates: [120, 20] as [number, number], zoom: 3 },
+      },
+      {
+        id: "latam",
+        label: "Latin America",
+        status: "in-progress" as const,
+        agentforce: false,
+        countries: ["BRA", "ARG", "COL", "CHL", "PER", "VEN", "ECU", "BOL", "PRY", "URY", "GTM", "HND", "SLV", "NIC", "CRI", "PAN", "DOM", "CUB", "JAM"],
+        before: "TODO: Disconnected regional teams. High manual overhead in field operations.",
+        current: "TODO: Platform rollout in progress. Brazil and Mexico as anchor markets.",
+        future: "TODO: Field agent network covering all major LATAM markets.",
+        futureHighlights: [
+          "TODO: Unified field operations layer",
+          "TODO: Portuguese and Spanish agent support",
+        ],
+        zoom: { coordinates: [-65, -15] as [number, number], zoom: 3 },
+      },
+      {
+        id: "emea",
+        label: "Middle East & Africa",
+        status: "in-progress" as const,
+        agentforce: false,
+        countries: ["SAU", "ARE", "EGY", "ZAF", "NGA", "KEN", "GHA", "ETH", "TZA", "UGA", "IRQ", "JOR"],
+        before: "TODO: Limited platform presence. Heavy reliance on third-party tooling.",
+        current: "TODO: Initial deployment scoped. Saudi Arabia and UAE as launch markets.",
+        future: "TODO: MEA platform footprint established with Agentforce expansion.",
+        futureHighlights: [
+          "TODO: Arabic language agent support",
+          "TODO: Cross-border consumer intelligence",
+        ],
+        zoom: { coordinates: [35, 15] as [number, number], zoom: 3 },
+      },
+    ] as GlobalMapOU[],
+
+    // Timeline — each frame sets the status of each OU at that point in time
+    timeline: [
+      {
+        year: 2022,
+        label: "Foundation",
+        caption: "Platform deployed in North America. The blueprint is established.",
+        ouStatus: { "north-america": "in-progress", europe: "none", apac: "none", latam: "none", emea: "none" },
+      },
+      {
+        year: 2023,
+        label: "North America Live",
+        caption: "North America reaches full deployment. Europe onboarding begins.",
+        ouStatus: { "north-america": "live", europe: "in-progress", apac: "none", latam: "none", emea: "none" },
+      },
+      {
+        year: 2024,
+        label: "Global Expansion",
+        caption: "Europe live. APAC and LATAM deployments underway.",
+        ouStatus: { "north-america": "live", europe: "live", apac: "in-progress", latam: "in-progress", emea: "none" },
+      },
+      {
+        year: 2025,
+        label: "Today",
+        caption: "Two regions live. Three in active rollout. MEA scoped.",
+        ouStatus: { "north-america": "live", europe: "live", apac: "in-progress", latam: "in-progress", emea: "in-progress" },
+      },
+      {
+        year: 2027,
+        label: "Future State",
+        caption: "All regions on the unified platform. Agentforce operating globally.",
+        ouStatus: { "north-america": "live", europe: "live", apac: "live", latam: "live", emea: "live" },
+      },
+    ] as GlobalMapTimelineFrame[],
+
+    // Markers — pulsing dots that appear on specific coordinates from a given timeline index
+    markers: [
+      { coordinates: [-84, 34] as [number, number], label: "North America", fromIndex: 1 },
+      { coordinates: [13, 52]  as [number, number], label: "Europe",        fromIndex: 2 },
+    ],
   },
 
   // ── CTA (used in footer + act 3 close) ────────────────────────────────────

@@ -11,10 +11,10 @@
   "dependencies": {
     "jose": "^6.2.3",
     "next": "14.2.35",
-    "react-simple-maps": "^3.0.0",
     "postmark": "^4.0.7",
     "react": "^18",
     "react-dom": "^18",
+    "react-simple-maps": "^3.0.0",
     "resend": "^6.12.3"
   },
   "devDependencies": {

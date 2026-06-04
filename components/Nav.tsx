@@ -24,6 +24,7 @@ const allNavLinks = [
   { href: "/roi-calculator", slug: "roi-calculator", label: "ROI Calculator" },
   { href: "/innovation",     slug: "innovation",     label: "Innovation" },
   { href: "/headless-360",   slug: "headless-360",   label: "Headless 360" },
+  { href: "/global-map",     slug: "global-map",     label: "Global Map" },
 ];
 
 const navLinks = allNavLinks.filter(
