@@ -101,6 +101,14 @@
   background: color-mix(in srgb, var(--brand-primary) 10%, transparent);
 }
 
+/* ── Nav dropdown scrollbar — always visible, themed ────────────────────── */
+.nav-scroll::-webkit-scrollbar        { width: 6px; }
+.nav-scroll::-webkit-scrollbar-track  { background: var(--brand-surface-border); border-radius: 9999px; margin: 8px 0; }
+.nav-scroll::-webkit-scrollbar-thumb  { background: var(--brand-primary); border-radius: 9999px; min-height: 32px; }
+.nav-scroll::-webkit-scrollbar-thumb:hover { background: var(--brand-primary-dark); }
+/* Firefox */
+.nav-scroll { scrollbar-width: thin; scrollbar-color: var(--brand-primary) var(--brand-surface-border); }
+
 /* ── Section wave — brand-tinted decorative wave behind section content ── */
 .section-wave {
   position: relative;
