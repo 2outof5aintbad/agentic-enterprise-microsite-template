@@ -132,7 +132,7 @@ export interface ProofFunction {
 export const ACCOUNT = {
 
   // ── Identity ───────────────────────────────────────────────────────────────
-  company: "ACME Corporation",
+  company: "Ohana Inc.",
 
   brand: {
     primary:      "#0066FF",

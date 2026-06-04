@@ -46,9 +46,9 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-4" style={{ gap: "var(--brand-density-gap)" }}>
             {platformInvestments.map((inv, i) => (
-              <FadeIn key={inv.product} delay={i * 55}>
+              <FadeIn key={inv.product} delay={i * 55} className="h-full">
                 <div
-                  className="relative p-6 h-full border transition-all rounded-[var(--brand-radius)]"
+                  className="relative flex flex-col h-full border transition-all rounded-[var(--brand-radius)]"
                   style={inv.highlight
                     ? { background: "var(--brand-primary)", borderColor: "var(--brand-primary)", boxShadow: "0 8px 30px color-mix(in srgb, var(--brand-primary) 30%, transparent)", padding: "var(--brand-density-pad)" }
                     : { background: "var(--brand-card-bg)", borderColor: "var(--brand-card-border)", boxShadow: "var(--brand-card-shadow)", padding: "var(--brand-density-pad)" }
@@ -142,7 +142,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: "var(--brand-density-gap)" }}>
             {acts.map((act, i) => (
-              <FadeIn key={act.number} delay={i * 100}>
+              <FadeIn key={act.number} delay={i * 100} className="h-full">
                 <ActCard number={act.number} href={act.href} title={act.title} tagline={act.tagline} description={act.description} />
               </FadeIn>
             ))}
@@ -172,10 +172,10 @@ export default function HomePage() {
               { href: "/business-case", label: "Business Case",  desc: "The investment and the return" },
               { href: "/pilot",         label: "Pilot Plan",     desc: "90-day path to production" },
             ].filter(item => ACCOUNT.pages.includes(item.href.replace("/", ""))).map((item, i) => (
-              <FadeIn key={item.href} delay={i * 40}>
+              <FadeIn key={item.href} delay={i * 40} className="h-full">
                 <Link
                   href={item.href}
-                  className="group flex flex-col gap-1.5 rounded-[var(--brand-radius)] border transition-all duration-200 hover:border-[var(--brand-primary)]/40"
+                  className="group flex flex-col gap-1.5 h-full rounded-[var(--brand-radius)] border transition-all duration-200 hover:border-[var(--brand-primary)]/40"
                   style={{ background: "var(--brand-card-bg)", borderColor: "var(--brand-card-border)", boxShadow: "var(--brand-card-shadow)", padding: "var(--brand-density-pad)" }}
                 >
                   <p className="font-display text-base font-black group-hover:text-[var(--brand-primary)] transition-colors duration-200 leading-tight" style={{ color: "var(--brand-text-heading)" }}>

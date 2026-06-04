@@ -66,7 +66,7 @@ function AgentGridCard({ agent, onClick }: { agent: Agent; onClick: () => void }
   return (
     <button
       onClick={onClick}
-      className="group flex flex-col items-center text-center rounded-2xl bg-white/[0.04] border border-white/8 hover:border-[var(--brand-primary)]/40 hover:bg-white/[0.07] transition-all duration-300 p-6 hover:-translate-y-1"
+      className="group flex flex-col items-center text-center h-full rounded-2xl bg-white/[0.04] border border-white/8 hover:border-[var(--brand-primary)]/40 hover:bg-white/[0.07] transition-all duration-300 p-6 hover:-translate-y-1"
     >
       {/* Avatar */}
       <div className="relative mb-5">

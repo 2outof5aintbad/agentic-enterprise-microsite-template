@@ -97,7 +97,7 @@ export default function Act1Page() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {metrics.map((m, i) => (
                 <FadeIn key={m.label} delay={i * 80}>
-                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-8 text-center">
+                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-6 py-8 text-center h-full">
                     <p className="font-display text-4xl font-black text-white mb-2 tabular-nums">{m.value}</p>
                     <p className="text-sm text-white/85 leading-snug font-medium">{m.label}</p>
                   </div>
@@ -118,7 +118,7 @@ export default function Act1Page() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {metrics.map((m, i) => (
                 <FadeIn key={m.label} delay={i * 80}>
-                  <div className="rounded-[var(--brand-radius)] px-6 py-8 text-center border" style={{ background: "var(--brand-card-bg)", borderColor: "var(--brand-card-border)", boxShadow: "var(--brand-card-shadow)" }}>
+                  <div className="rounded-[var(--brand-radius)] px-6 py-8 text-center border h-full" style={{ background: "var(--brand-card-bg)", borderColor: "var(--brand-card-border)", boxShadow: "var(--brand-card-shadow)" }}>
                     <p className="font-display text-4xl font-black mb-2 tabular-nums" style={{ color: "var(--brand-primary)" }}>{m.value}</p>
                     <p className="text-sm leading-snug font-medium" style={{ color: "var(--brand-text-muted)" }}>{m.label}</p>
                   </div>

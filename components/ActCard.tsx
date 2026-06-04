@@ -12,7 +12,7 @@ export default function ActCard({ number, title, tagline, description, href }: A
   return (
     <Link
       href={href}
-      className="group relative flex flex-col p-8 rounded-[var(--brand-radius)] border shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5"
+      className="group relative flex flex-col h-full p-8 rounded-[var(--brand-radius)] border shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5"
       style={{ background: "var(--brand-light)", borderColor: "var(--brand-surface-border)" }}
     >
       <div className="absolute top-0 left-0 right-0 h-1 rounded-t-[var(--brand-radius)] bg-[var(--brand-primary)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />

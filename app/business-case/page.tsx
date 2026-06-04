@@ -41,7 +41,7 @@ export default function BusinessCasePage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {gap.stats.map((stat, i) => (
               <FadeIn key={stat.label} delay={i * 80}>
-                <div className="bg-white border border-black/8 rounded-2xl p-6">
+                <div className="bg-white border border-black/8 rounded-2xl p-6 h-full">
                   <p className="font-display text-4xl font-black text-[var(--brand-primary)] mb-2">{stat.value}</p>
                   <p className="text-sm font-bold text-[#0A0A0A] mb-1">{stat.label}</p>
                 </div>
@@ -111,7 +111,7 @@ export default function BusinessCasePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
             {businessCase.valueUnlocked.map((v, i) => (
               <FadeIn key={v.label} delay={i * 80}>
-                <div className="border border-white/8 rounded-2xl p-7 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-200">
+                <div className="border border-white/8 rounded-2xl p-7 h-full bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-200">
                   <p className="text-xs font-bold tracking-widest uppercase text-[var(--brand-primary)]/70 mb-3">{v.label}</p>
                   <p className="font-display text-5xl font-black text-white mb-3">{v.value}</p>
                   <p className="text-sm text-white/55 leading-relaxed">{v.description}</p>

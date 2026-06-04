@@ -74,7 +74,7 @@ export default function Act3Page() {
           <div className="grid grid-cols-2 sm:grid-cols-4" style={{ gap: "var(--brand-density-gap)" }}>
             {outcomes.map((o, i) => (
               <FadeIn key={o.label} delay={i * 80}>
-                <div className="rounded-[var(--brand-radius)] border text-center" style={{ background: "var(--brand-card-bg)", borderColor: "var(--brand-card-border)", boxShadow: "var(--brand-card-shadow)", padding: "var(--brand-density-pad)" }}>
+                <div className="rounded-[var(--brand-radius)] border text-center h-full" style={{ background: "var(--brand-card-bg)", borderColor: "var(--brand-card-border)", boxShadow: "var(--brand-card-shadow)", padding: "var(--brand-density-pad)" }}>
                   <p className="font-display text-4xl font-black mb-2 tabular-nums" style={{ color: "var(--brand-primary)" }}>{o.metric}</p>
                   <p className="text-sm font-semibold leading-snug" style={{ color: "var(--brand-text-muted)" }}>{o.label}</p>
                 </div>

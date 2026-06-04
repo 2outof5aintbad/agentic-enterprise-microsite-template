@@ -29,7 +29,7 @@ export default function FadeIn({ children, delay = 0, className = "" }: FadeInPr
   }, [delay]);
 
   return (
-    <div ref={ref} className={`fade-in ${className}`}>
+    <div ref={ref} className={`fade-in h-full ${className}`}>
       {children}
     </div>
   );

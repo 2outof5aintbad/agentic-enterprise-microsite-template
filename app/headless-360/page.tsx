@@ -81,7 +81,7 @@ export default function Headless360Page() {
           <div className="grid sm:grid-cols-3" style={{ gap: "var(--brand-density-gap)" }}>
             {cfg.stats.map((item, i) => (
               <FadeIn key={item.label} delay={i * 80}>
-                <div className="rounded-[var(--brand-radius)] border h-full" style={{ background: "var(--brand-card-bg)", borderColor: "var(--brand-card-border)", padding: "var(--brand-density-pad)" }}>
+                <div className="rounded-[var(--brand-radius)] border h-full flex flex-col" style={{ background: "var(--brand-card-bg)", borderColor: "var(--brand-card-border)", padding: "var(--brand-density-pad)" }}>
                   <p className="font-display text-5xl font-black mb-3 tabular-nums" style={{ color: "var(--brand-primary)" }}>{item.stat}</p>
                   <p className="text-base leading-snug" style={{ color: "var(--brand-text-muted)" }}>{item.label}</p>
                 </div>
@@ -183,7 +183,7 @@ export default function Headless360Page() {
             <div className="grid sm:grid-cols-3 gap-5">
               {cfg.plays.map((play, i) => (
                 <FadeIn key={play.label} delay={i * 80}>
-                  <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 h-full flex flex-col">
+                  <div className="h-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 flex flex-col">
                     <div className="text-[0.6rem] font-bold tracking-widest uppercase text-white/50 mb-2">{play.category}</div>
                     <h3 className="font-display text-xl font-black text-white mb-3 leading-tight">{play.label}</h3>
                     <p className="text-sm text-white/80 leading-relaxed flex-1 mb-5">{play.description}</p>
