@@ -122,30 +122,28 @@ export default function BusinessCasePage() {
         </div>
       </section>
 
-      {/* Client Zero / Unique Position */}
+      {/* What makes this account different */}
       {businessCase.clientZeroNote && (
-        <section className="relative overflow-hidden bg-[var(--brand-primary)]">
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1440 400" fill="none" preserveAspectRatio="xMidYMid slice" aria-hidden>
-            <circle cx="1200" cy="200" r="300" stroke="white" strokeWidth="1" fill="none" opacity="0.06"/>
-          </svg>
-          <div className="relative max-w-6xl mx-auto px-6 py-20">
+        <section className="border-t" style={{ background: "var(--brand-section-alt)", borderColor: "var(--brand-surface-border)" }}>
+          <div className="max-w-6xl mx-auto px-6 py-24">
             <FadeIn>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
                 <div>
-                  <div className="mb-6">
-                    <span className="inline-flex items-center px-3.5 py-1.5 rounded-full border-2 border-white/40 text-[0.65rem] font-bold tracking-[0.18em] uppercase" style={{ color: "var(--brand-text-on-primary)" }}>
-                      Unique Position
-                    </span>
-                  </div>
-                  <h2 className="font-display text-4xl sm:text-5xl font-black leading-tight tracking-tight mb-5" style={{ color: "var(--brand-text-on-primary)" }}>
-                    Why this account is different.
-                  </h2>
-                  <p className="text-lg leading-relaxed" style={{ color: "var(--brand-text-on-primary-muted)" }}>{businessCase.clientZeroNote}</p>
+                  <p className="text-[0.6rem] font-bold tracking-[0.18em] uppercase mb-5" style={{ color: "var(--brand-text-muted)", opacity: 0.4 }}>
+                    {ACCOUNT.company}
+                  </p>
+                  <p className="text-xl leading-relaxed" style={{ color: "var(--brand-text-muted)" }}>
+                    {businessCase.clientZeroNote}
+                  </p>
                 </div>
                 {businessCase.windowNote && (
-                  <div className="bg-white/10 border border-white/20 rounded-2xl p-8">
-                    <p className="text-[0.65rem] font-bold tracking-widest uppercase mb-3" style={{ color: "var(--brand-text-on-primary-subtle)" }}>The Window</p>
-                    <p className="text-base leading-relaxed" style={{ color: "var(--brand-text-on-primary-muted)" }}>{businessCase.windowNote}</p>
+                  <div className="pt-8 lg:pt-0" style={{ borderTop: "1px solid var(--brand-surface-border)" }}>
+                    <p className="text-[0.6rem] font-bold tracking-[0.18em] uppercase mb-5" style={{ color: "var(--brand-text-muted)", opacity: 0.4 }}>
+                      Why Now
+                    </p>
+                    <p className="text-xl leading-relaxed" style={{ color: "var(--brand-text-muted)" }}>
+                      {businessCase.windowNote}
+                    </p>
                   </div>
                 )}
               </div>
