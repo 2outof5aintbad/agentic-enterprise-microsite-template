@@ -63,50 +63,50 @@ function AgentCard({ agent, onClick }: { agent: Agent; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="group w-full h-full text-left rounded-2xl p-6 transition-all duration-200 hover:-translate-y-0.5"
-      style={{ background: "var(--brand-card-bg)", border: "1px solid var(--brand-card-border)" }}
+      className="group w-full h-full text-left rounded-2xl p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl relative overflow-hidden"
+      style={{ background: "linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 60%, #2563eb 100%)" }}
     >
+      {/* Subtle noise texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }} />
+
       {/* Top: avatar + status */}
-      <div className="flex items-start justify-between gap-3 mb-5">
+      <div className="relative flex items-start justify-between gap-3 mb-5">
         <Avatar agent={agent} size={48} className="w-12 h-12 rounded-xl" />
         <div className="flex items-center gap-1.5 pt-0.5">
           <StatusDot status={agent.status} />
-          <span className="text-[0.6rem] font-bold tracking-[0.14em] uppercase" style={{ color: s.color }}>
+          <span className="text-[0.6rem] font-bold tracking-[0.14em] uppercase text-white/70">
             {s.label}
           </span>
         </div>
       </div>
 
       {/* Identity */}
-      <h3
-        className="font-display text-lg font-black leading-tight mb-1 group-hover:text-[var(--brand-primary)] transition-colors duration-200"
-        style={{ color: "var(--brand-text-heading)" }}
-      >
+      <h3 className="relative font-display text-lg font-black leading-tight mb-1 text-white">
         {agent.name}
       </h3>
-      <p className="text-xs mb-5 leading-snug" style={{ color: "var(--brand-text-muted)", opacity: 0.45 }}>
+      <p className="relative text-xs mb-5 leading-snug text-white/55">
         {agent.function}
       </p>
 
       {/* Metrics */}
       {agent.metrics && agent.metrics.length > 0 ? (
-        <div className="flex items-center gap-5 pt-4" style={{ borderTop: "1px solid var(--brand-surface-border)" }}>
+        <div className="relative flex items-center gap-5 pt-4 border-t border-white/15">
           {agent.metrics.slice(0, 2).map((m, i) => (
             <div key={i}>
-              <p className="font-display text-xl font-black tabular-nums leading-none mb-0.5" style={{ color: "var(--brand-primary)" }}>
+              <p className="font-display text-xl font-black tabular-nums leading-none mb-0.5 text-white">
                 {m.value}
               </p>
-              <p className="text-[0.58rem] leading-snug" style={{ color: "var(--brand-text-muted)", opacity: 0.45 }}>
+              <p className="text-[0.58rem] leading-snug text-white/50">
                 {m.label}
               </p>
             </div>
           ))}
-          <p className="ml-auto text-[0.58rem] shrink-0" style={{ color: "var(--brand-text-muted)", opacity: 0.3 }}>
+          <p className="ml-auto text-[0.58rem] shrink-0 text-white/30">
             {agent.goLive}
           </p>
         </div>
       ) : (
-        <p className="text-[0.6rem] pt-4" style={{ borderTop: "1px solid var(--brand-surface-border)", color: "var(--brand-text-muted)", opacity: 0.3 }}>
+        <p className="relative text-[0.6rem] pt-4 border-t border-white/15 text-white/30">
           {agent.goLive}
         </p>
       )}
