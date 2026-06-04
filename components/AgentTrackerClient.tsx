@@ -5,225 +5,250 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { ACCOUNT } from "@/data/account";
 
-type Agent = typeof ACCOUNT.agentTracker.agents[number];
+type Agent    = typeof ACCOUNT.agentTracker.agents[number];
+type Milestone = typeof ACCOUNT.agentTracker.platformMilestones[number];
 
 const STATUS_CONFIG = {
-  live:    { label: "Live",    dot: "bg-emerald-400", pill: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30", pillLight: "bg-emerald-500/10 text-emerald-700 border-emerald-500/25" },
-  pilot:   { label: "Pilot",   dot: "bg-amber-400",   pill: "bg-amber-500/20 text-amber-300 border-amber-500/30",       pillLight: "bg-amber-500/10 text-amber-700 border-amber-500/25" },
-  planned: { label: "Planned", dot: "bg-blue-400",    pill: "bg-blue-500/20 text-blue-300 border-blue-500/30",          pillLight: "bg-blue-500/10 text-blue-700 border-blue-500/25" },
+  live:    { label: "Live",    dot: "bg-emerald-400 animate-pulse", pill: "bg-emerald-500/15 text-emerald-300 border-emerald-500/25" },
+  pilot:   { label: "In Pilot", dot: "bg-amber-400",  pill: "bg-amber-500/15 text-amber-300 border-amber-500/25" },
+  planned: { label: "Planned",  dot: "bg-blue-400",   pill: "bg-blue-500/15 text-blue-300 border-blue-500/25" },
 };
 
-const STATIC_GRADIENTS = [
+const GRADIENTS = [
   "from-[#0066FF] to-[#0041CC]",
   "from-emerald-600 to-emerald-900",
   "from-amber-600 to-amber-900",
-  "from-blue-600 to-blue-900",
   "from-purple-600 to-purple-900",
   "from-rose-700 to-rose-950",
   "from-teal-600 to-teal-900",
+  "from-indigo-600 to-indigo-900",
 ];
 
-function avatarGradient(id: string) {
-  const hash = id.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
-  return STATIC_GRADIENTS[hash % STATIC_GRADIENTS.length];
+function gradient(id: string) {
+  const hash = id.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  return GRADIENTS[hash % GRADIENTS.length];
 }
 
 function initials(name: string) {
-  return name.split(/[\s—–-]+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+  return name.split(/[\s—–-]+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase();
 }
 
-function AgentAvatar({ agent, sizePx, className = "" }: { agent: Agent; sizePx: number; className?: string }) {
-  const [errored, setErrored] = useState(false);
+function Avatar({ agent, size, className = "" }: { agent: Agent; size: number; className?: string }) {
+  const [err, setErr] = useState(false);
   const src = "avatar" in agent ? agent.avatar as string | undefined : undefined;
-  const showImage = src && !errored;
-
   return (
-    <div className={`bg-gradient-to-br ${avatarGradient(agent.id)} flex items-center justify-center overflow-hidden ${className}`}>
-      {showImage ? (
-        <Image
-          src={src}
-          alt={agent.name}
-          width={sizePx}
-          height={sizePx}
-          className="w-full h-full object-cover object-top"
-          onError={() => setErrored(true)}
-        />
+    <div className={`bg-gradient-to-br ${gradient(agent.id)} flex items-center justify-center overflow-hidden shrink-0 ${className}`}>
+      {src && !err ? (
+        <Image src={src} alt={agent.name} width={size} height={size} className="w-full h-full object-cover object-top" onError={() => setErr(true)} />
       ) : (
-        <span className="text-white font-black select-none" style={{ fontSize: sizePx * 0.28 }}>
-          {initials(agent.name)}
-        </span>
+        <span className="text-white font-black select-none" style={{ fontSize: size * 0.3 }}>{initials(agent.name)}</span>
       )}
     </div>
   );
 }
 
-// ── Grid card ─────────────────────────────────────────────────────────────────
-
-function AgentGridCard({ agent, onClick }: { agent: Agent; onClick: () => void }) {
-  const cfg = STATUS_CONFIG[agent.status];
-  const isLive = agent.status === "live";
-
+// ── Live agent card — prominent, shows metrics on face ────────────────────────
+function LiveCard({ agent, onClick }: { agent: Agent; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="group flex flex-col items-center text-center h-full rounded-2xl bg-white/[0.04] border border-white/8 hover:border-[var(--brand-primary)]/40 hover:bg-white/[0.07] transition-all duration-300 p-6 hover:-translate-y-1"
+      className="group w-full text-left rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+      style={{ background: "var(--brand-card-bg)", border: "1px solid var(--brand-card-border)" }}
     >
-      {/* Avatar */}
-      <div className="relative mb-5">
-        <AgentAvatar
-          agent={agent}
-          sizePx={80}
-          className="w-20 h-20 rounded-full ring-2 ring-white/10 group-hover:ring-[var(--brand-primary)]/30 transition-all duration-300"
-        />
-        <span className={`absolute bottom-0.5 right-0.5 w-4 h-4 rounded-full border-2 border-[#0A0A0A] ${cfg.dot} ${isLive ? "animate-pulse" : ""}`} />
-      </div>
+      {/* Top stripe */}
+      <div className="h-0.5 w-full bg-emerald-400/60" />
 
-      {/* Status pill */}
-      <div className="mb-3">
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[0.58rem] font-bold tracking-widest uppercase border ${cfg.pill}`}>
-          {cfg.label}
-        </span>
-      </div>
+      <div className="p-6">
+        {/* Header */}
+        <div className="flex items-start gap-4 mb-5">
+          <div className="relative">
+            <Avatar agent={agent} size={56} className="w-14 h-14 rounded-2xl" />
+            <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full border-2 bg-emerald-400 animate-pulse" style={{ borderColor: "var(--brand-card-bg)" }} />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[0.55rem] font-bold tracking-widest uppercase border bg-emerald-500/15 text-emerald-300 border-emerald-500/25">
+                Live
+              </span>
+              <span className="text-[0.6rem] font-medium truncate" style={{ color: "var(--brand-text-muted)", opacity: 0.4 }}>{agent.function}</span>
+            </div>
+            <h3 className="font-display text-lg font-black leading-tight group-hover:text-[var(--brand-primary)] transition-colors duration-200" style={{ color: "var(--brand-text-heading)" }}>
+              {agent.name}
+            </h3>
+          </div>
+        </div>
 
-      {/* Name */}
-      <h3 className="font-display text-base font-black text-white leading-tight mb-3 group-hover:text-[var(--brand-primary)] transition-colors duration-200">
-        {agent.name}
-      </h3>
+        {/* Tagline */}
+        <p className="text-xs italic leading-relaxed mb-5" style={{ color: "var(--brand-text-muted)" }}>
+          &ldquo;{agent.tagline}&rdquo;
+        </p>
 
-      {/* Tagline */}
-      <p className="text-xs text-white/50 leading-relaxed italic flex-1">
-        &ldquo;{agent.tagline}&rdquo;
-      </p>
-
-      {/* CTA */}
-      <div className="mt-4 flex items-center gap-1 text-[0.65rem] font-bold text-white/20 group-hover:text-[var(--brand-primary)]/70 transition-colors duration-200">
-        Details
-        <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden className="group-hover:translate-x-0.5 transition-transform duration-200">
-          <path d="M2.5 6h7M6.5 2.5L10 6l-3.5 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
+        {/* Metrics — the payoff */}
+        {agent.metrics && agent.metrics.length > 0 && (
+          <div className="grid grid-cols-2 gap-2 pt-4" style={{ borderTop: "1px solid var(--brand-surface-border)" }}>
+            {agent.metrics.map((m, i) => (
+              <div key={i}>
+                <p className="font-display text-2xl font-black tabular-nums leading-none mb-0.5" style={{ color: "var(--brand-primary)" }}>{m.value}</p>
+                <p className="text-[0.6rem] leading-snug" style={{ color: "var(--brand-text-muted)", opacity: 0.55 }}>{m.label}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </button>
   );
 }
 
-// ── Modal ─────────────────────────────────────────────────────────────────────
+// ── Pilot agent card — medium, shows what it targets ─────────────────────────
+function PilotCard({ agent, onClick }: { agent: Agent; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="group w-full text-left flex items-start gap-4 rounded-2xl p-5 transition-all duration-200 hover:-translate-y-0.5"
+      style={{ background: "var(--brand-card-bg)", border: "1px solid var(--brand-card-border)" }}
+    >
+      <div className="relative shrink-0">
+        <Avatar agent={agent} size={44} className="w-11 h-11 rounded-xl" />
+        <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 bg-amber-400" style={{ borderColor: "var(--brand-card-bg)" }} />
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2 mb-1">
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[0.55rem] font-bold tracking-widest uppercase border bg-amber-500/15 text-amber-300 border-amber-500/25">
+            In Pilot
+          </span>
+          <span className="text-[0.58rem] font-medium" style={{ color: "var(--brand-text-muted)", opacity: 0.35 }}>{agent.goLive}</span>
+        </div>
+        <h3 className="font-display text-base font-black leading-tight mb-1.5 group-hover:text-[var(--brand-primary)] transition-colors duration-200" style={{ color: "var(--brand-text-heading)" }}>
+          {agent.name}
+        </h3>
+        {agent.metrics && agent.metrics.length > 0 && (
+          <div className="flex items-center gap-3">
+            {agent.metrics.slice(0, 2).map((m, i) => (
+              <div key={i} className="flex items-baseline gap-1">
+                <span className="font-display text-sm font-black tabular-nums" style={{ color: "var(--brand-primary)" }}>{m.value}</span>
+                <span className="text-[0.58rem]" style={{ color: "var(--brand-text-muted)", opacity: 0.5 }}>{m.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 mt-1 opacity-25 group-hover:opacity-60 transition-opacity" aria-hidden>
+        <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="var(--brand-primary)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </button>
+  );
+}
 
+// ── Planned agent row — compact list ─────────────────────────────────────────
+function PlannedRow({ agent, onClick }: { agent: Agent; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="group w-full text-left flex items-center gap-4 px-5 py-4 rounded-xl transition-all duration-150 hover:bg-[var(--brand-surface)]"
+    >
+      <span className="w-2 h-2 rounded-full bg-blue-400 shrink-0" />
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-bold leading-tight group-hover:text-[var(--brand-primary)] transition-colors duration-150" style={{ color: "var(--brand-text-heading)" }}>
+          {agent.name}
+        </p>
+        <p className="text-xs" style={{ color: "var(--brand-text-muted)", opacity: 0.45 }}>{agent.function} · {agent.goLive}</p>
+      </div>
+      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" className="shrink-0 opacity-20 group-hover:opacity-50 transition-opacity" aria-hidden>
+        <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="var(--brand-primary)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </button>
+  );
+}
+
+// ── Detail modal ──────────────────────────────────────────────────────────────
 function AgentModal({ agent, onClose }: { agent: Agent; onClose: () => void }) {
-  const cfg = STATUS_CONFIG[agent.status];
+  const cfg   = STATUS_CONFIG[agent.status];
   const isLive = agent.status === "live";
-  const hasMetrics = agent.metrics && agent.metrics.length > 0;
 
   return (
-    <div className="fixed inset-0 z-[60] overflow-y-auto" ref={(el) => { if (el) el.scrollTop = 0; }}>
-      <div className="fixed inset-0 bg-[#0A0A0A]/80 backdrop-blur-sm" onClick={onClose} />
+    <div className="fixed inset-0 z-[60] overflow-y-auto" ref={el => { if (el) el.scrollTop = 0; }}>
+      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
       <div className="flex min-h-full items-center justify-center p-4">
-        <div className="relative z-10 w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+        <div className="relative z-10 w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden flex flex-col" style={{ background: "var(--brand-bg)", border: "1px solid var(--brand-surface-border)" }}>
 
-          {/* Accent bar */}
-          <div className={`h-1 w-full shrink-0 ${isLive ? "bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500/20" : "bg-[var(--brand-primary)]"}`} />
+          {/* Status stripe */}
+          <div className={`h-0.5 w-full shrink-0 ${isLive ? "bg-emerald-400" : agent.status === "pilot" ? "bg-amber-400" : "bg-blue-400"}`} />
 
-          <div className="flex-1">
-            {/* Header */}
-            <div className="px-8 pt-8 pb-6 border-b border-black/6">
-              <div className="flex items-start gap-5">
-                <div className="relative shrink-0">
-                  <AgentAvatar
-                    agent={agent}
-                    sizePx={64}
-                    className="w-16 h-16 rounded-2xl ring-2 ring-black/8"
-                  />
-                  <span className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white ${cfg.dot} ${isLive ? "animate-pulse" : ""}`} />
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-2 flex-wrap">
-                    <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-[0.6rem] font-bold tracking-widest uppercase border ${cfg.pillLight}`}>
-                      {cfg.label}
-                    </span>
-                    <span className="text-xs text-black/35 font-medium">{agent.entity}</span>
-                  </div>
-                  <h2 className="font-display text-2xl font-black text-[#0A0A0A] leading-tight mb-1">{agent.name}</h2>
-                  <p className="text-xs font-semibold tracking-wide text-black/35 uppercase">{agent.function}</p>
-                </div>
-
-                <button
-                  onClick={onClose}
-                  aria-label="Close"
-                  className="shrink-0 w-9 h-9 rounded-xl border border-black/8 flex items-center justify-center text-black/35 hover:text-[#0A0A0A] hover:border-black/20 transition-all"
-                >
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                    <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-                  </svg>
-                </button>
+          {/* Header */}
+          <div className="px-7 pt-7 pb-5" style={{ borderBottom: "1px solid var(--brand-surface-border)" }}>
+            <div className="flex items-start gap-4">
+              <div className="relative shrink-0">
+                <Avatar agent={agent} size={60} className="w-15 h-15 rounded-2xl" style={{ width: 60, height: 60 }} />
+                <span className={`absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full border-2 ${cfg.dot}`} style={{ borderColor: "var(--brand-bg)" }} />
               </div>
-
-              {/* Go-live + tagline */}
-              <div className="mt-4 flex items-center gap-1.5 text-xs text-black/40 font-medium mb-3">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-                  <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.1"/>
-                  <path d="M6 3.5v3l1.5 1.5" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round"/>
-                </svg>
-                {agent.goLive}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[0.58rem] font-bold tracking-widest uppercase border ${cfg.pill}`}>
+                    {cfg.label}
+                  </span>
+                  <span className="text-xs font-medium" style={{ color: "var(--brand-text-muted)", opacity: 0.4 }}>{agent.entity}</span>
+                </div>
+                <h2 className="font-display text-xl font-black leading-tight mb-0.5" style={{ color: "var(--brand-text-heading)" }}>{agent.name}</h2>
+                <p className="text-xs font-medium uppercase tracking-wide" style={{ color: "var(--brand-text-muted)", opacity: 0.4 }}>{agent.function}</p>
               </div>
-              <p className="text-base font-semibold italic leading-snug" style={{ color: "var(--brand-primary)" }}>
-                &ldquo;{agent.tagline}&rdquo;
-              </p>
+              <button onClick={onClose} className="shrink-0 w-8 h-8 rounded-xl flex items-center justify-center transition-all" style={{ border: "1px solid var(--brand-surface-border)", color: "var(--brand-text-muted)" }}>
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
+              </button>
             </div>
 
-            {/* Body */}
-            <div className="px-8 py-6 space-y-6">
-              <p className="text-base text-[#3D3D3D] leading-relaxed">{agent.description}</p>
+            <div className="flex items-center gap-1.5 mt-4 text-xs font-medium" style={{ color: "var(--brand-text-muted)", opacity: 0.45 }}>
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden><circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.1"/><path d="M6 3.5v3l1.5 1.5" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round"/></svg>
+              {agent.goLive}
+            </div>
+            <p className="text-sm font-semibold italic mt-2 leading-snug" style={{ color: "var(--brand-primary)" }}>
+              &ldquo;{agent.tagline}&rdquo;
+            </p>
+          </div>
 
-              {hasMetrics && (
-                <div>
-                  <div className="mb-4">
-                    <span className="eyebrow-pill-outline">{agent.status === "planned" ? "Target Metrics" : "Outcomes"}</span>
-                  </div>
-                  <div className={`grid gap-4 ${agent.metrics.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
-                    {agent.metrics.map((m, i) => (
-                      <div key={i} className="bg-[var(--brand-light)] rounded-2xl border border-black/6 px-5 py-5">
-                        <p className="font-display text-3xl font-black text-[#0A0A0A] tabular-nums leading-none mb-1.5">{m.value}</p>
-                        <p className="text-xs text-[#3D3D3D] leading-snug">{m.label}</p>
+          {/* Body */}
+          <div className="px-7 py-6 space-y-6">
+            <p className="text-sm leading-relaxed" style={{ color: "var(--brand-text-muted)" }}>{agent.description}</p>
+
+            {agent.metrics && agent.metrics.length > 0 && (
+              <div>
+                <p className="text-[0.6rem] font-bold tracking-[0.16em] uppercase mb-3" style={{ color: "var(--brand-text-muted)", opacity: 0.4 }}>
+                  {agent.status === "planned" ? "Target Metrics" : "Outcomes"}
+                </p>
+                <div className={`grid gap-3 ${agent.metrics.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
+                  {agent.metrics.map((m, i) => (
+                    <div key={i} className="rounded-xl p-4" style={{ background: "var(--brand-surface)", border: "1px solid var(--brand-surface-border)" }}>
+                      <p className="font-display text-2xl font-black tabular-nums leading-none mb-1" style={{ color: "var(--brand-primary)" }}>{m.value}</p>
+                      <p className="text-xs leading-snug" style={{ color: "var(--brand-text-muted)" }}>{m.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {agent.highlights && agent.highlights.length > 0 && (
+              <div>
+                <p className="text-[0.6rem] font-bold tracking-[0.16em] uppercase mb-3" style={{ color: "var(--brand-text-muted)", opacity: 0.4 }}>Key Details</p>
+                <ul className="space-y-2.5">
+                  {agent.highlights.map((h, i) => (
+                    <li key={i} className="flex items-start gap-2.5">
+                      <div className="w-4 h-4 rounded-full shrink-0 mt-0.5 flex items-center justify-center" style={{ background: "color-mix(in srgb, var(--brand-primary) 12%, transparent)" }}>
+                        <svg width="7" height="7" viewBox="0 0 10 10" fill="none" aria-hidden><path d="M2 5l2.5 2.5L8 2.5" stroke="var(--brand-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {agent.highlights && agent.highlights.length > 0 && (
-                <div>
-                  <div className="mb-4">
-                    <span className="eyebrow-pill-outline">Key Details</span>
-                  </div>
-                  <ul className="space-y-3">
-                    {agent.highlights.map((h, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <div className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ background: "color-mix(in srgb, var(--brand-primary) 12%, transparent)" }}>
-                          <svg width="8" height="8" viewBox="0 0 10 10" fill="none" aria-hidden>
-                            <path d="M2 5l2.5 2.5L8 2.5" stroke="var(--brand-primary)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                          </svg>
-                        </div>
-                        <span className="text-sm text-[#3D3D3D] leading-relaxed">{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
+                      <span className="text-sm leading-relaxed" style={{ color: "var(--brand-text-muted)" }}>{h}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
 
           {/* Footer */}
-          <div className="px-8 py-5 border-t border-black/6 bg-[var(--brand-light)] shrink-0 flex items-center justify-between gap-4">
-            <p className="text-xs text-black/35 leading-snug max-w-xs">Questions about this agent? Reach out to the account team.</p>
-            <a
-              href="/account-team"
-              className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-200 hover:-translate-y-0.5"
-              style={{ background: "var(--brand-primary)", color: "var(--brand-text-on-primary)" }}
-            >
+          <div className="px-7 py-5 flex items-center justify-between gap-4" style={{ borderTop: "1px solid var(--brand-surface-border)", background: "var(--brand-surface)" }}>
+            <p className="text-xs" style={{ color: "var(--brand-text-muted)", opacity: 0.45 }}>Questions about this agent? Talk to the account team.</p>
+            <a href="/account-team" className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm transition-all duration-200 hover:-translate-y-0.5"
+              style={{ background: "var(--brand-primary)", color: "var(--brand-text-on-primary)" }}>
               Account Team
-              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
-                <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </a>
           </div>
         </div>
@@ -232,41 +257,36 @@ function AgentModal({ agent, onClose }: { agent: Agent; onClose: () => void }) {
   );
 }
 
-// ── Platform Milestone card ───────────────────────────────────────────────────
-
-type Milestone = typeof ACCOUNT.agentTracker.platformMilestones[number];
-
+// ── Platform milestone ────────────────────────────────────────────────────────
 function MilestoneCard({ milestone }: { milestone: Milestone }) {
   return (
-    <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.06] p-6">
+    <div className="rounded-2xl p-6" style={{ background: "var(--brand-card-bg)", border: "1px solid color-mix(in srgb, #22c55e 20%, transparent)" }}>
       <div className="flex items-start gap-4">
-        <div className="shrink-0 w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+        <div className="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center shrink-0">
           <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden>
             <path d="M3 10.5l5 5L17 4.5" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1 flex-wrap">
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[0.58rem] font-bold tracking-widest uppercase border bg-emerald-500/20 text-emerald-300 border-emerald-500/30">
-              Live — {milestone.launched}
+          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[0.55rem] font-bold tracking-widest uppercase border bg-emerald-500/15 text-emerald-300 border-emerald-500/25">
+              Live · {milestone.launched}
             </span>
-            <span className="text-[0.65rem] text-white/30 font-medium">Platform Milestone</span>
+            <span className="text-[0.6rem] font-medium" style={{ color: "var(--brand-text-muted)", opacity: 0.35 }}>Platform Milestone</span>
           </div>
-          <h3 className="font-display text-base font-black text-white mb-1">{milestone.name}</h3>
-          <p className="text-xs text-white/55 leading-relaxed mb-4">{milestone.description}</p>
-
+          <h3 className="font-display text-base font-black mb-1" style={{ color: "var(--brand-text-heading)" }}>{milestone.name}</h3>
+          <p className="text-xs leading-relaxed mb-4" style={{ color: "var(--brand-text-muted)" }}>{milestone.description}</p>
           <div className={`grid gap-3 mb-4 ${milestone.stats.length === 2 ? "grid-cols-2" : "grid-cols-3"}`}>
             {milestone.stats.map((s, i) => (
-              <div key={i} className="bg-white/[0.04] rounded-xl border border-white/8 px-4 py-3">
-                <p className="font-display text-xl font-black text-white leading-none mb-1">{s.value}</p>
-                <p className="text-[0.65rem] text-white/45 leading-snug">{s.label}</p>
+              <div key={i} className="rounded-xl px-4 py-3" style={{ background: "var(--brand-surface)", border: "1px solid var(--brand-surface-border)" }}>
+                <p className="font-display text-xl font-black leading-none mb-1" style={{ color: "var(--brand-text-heading)" }}>{s.value}</p>
+                <p className="text-[0.6rem]" style={{ color: "var(--brand-text-muted)", opacity: 0.5 }}>{s.label}</p>
               </div>
             ))}
           </div>
-
-          <ul className="space-y-2">
+          <ul className="space-y-1.5">
             {milestone.highlights.map((h, i) => (
-              <li key={i} className="flex items-start gap-2.5 text-xs text-white/50 leading-relaxed">
+              <li key={i} className="flex items-start gap-2 text-xs leading-relaxed" style={{ color: "var(--brand-text-muted)" }}>
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0 mt-0.5" aria-hidden>
                   <path d="M2 5l2 2L8 2" stroke="#22c55e" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -281,7 +301,6 @@ function MilestoneCard({ milestone }: { milestone: Milestone }) {
 }
 
 // ── Main export ───────────────────────────────────────────────────────────────
-
 export default function AgentTrackerClient({ agents, milestones = [] }: { agents: Agent[]; milestones?: Milestone[] }) {
   const [selected, setSelected] = useState<Agent | null>(null);
 
@@ -291,31 +310,83 @@ export default function AgentTrackerClient({ agents, milestones = [] }: { agents
     return () => document.removeEventListener("keydown", handler);
   }, []);
 
+  const live    = agents.filter(a => a.status === "live");
+  const pilot   = agents.filter(a => a.status === "pilot");
+  const planned = agents.filter(a => a.status === "planned");
+
   return (
     <>
-      <section className="bg-transparent">
-        <div className="max-w-6xl mx-auto px-6 pt-16 pb-4">
-          <p className="text-xs font-bold tracking-[0.18em] uppercase text-white/30 mb-6">Agentforce Deployments</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-            {agents.map((agent) => (
-              <AgentGridCard key={agent.id} agent={agent} onClick={() => setSelected(agent)} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <div className="max-w-6xl mx-auto px-6 space-y-16 pb-16">
 
-      {milestones.length > 0 && (
-        <section className="bg-transparent">
-          <div className="max-w-6xl mx-auto px-6 py-8">
-            <p className="text-xs font-bold tracking-[0.18em] uppercase text-white/30 mb-4">Platform Milestones</p>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {milestones.map((m) => (
-                <MilestoneCard key={m.id} milestone={m} />
+        {/* Live agents — featured */}
+        {live.length > 0 && (
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <p className="text-xs font-bold tracking-[0.18em] uppercase" style={{ color: "var(--brand-text-muted)", opacity: 0.5 }}>
+                Live in Production · {live.length} agent{live.length > 1 ? "s" : ""}
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {live.map(agent => (
+                <LiveCard key={agent.id} agent={agent} onClick={() => setSelected(agent)} />
               ))}
             </div>
           </div>
-        </section>
-      )}
+        )}
+
+        {/* Platform milestones */}
+        {milestones.length > 0 && (
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <p className="text-xs font-bold tracking-[0.18em] uppercase" style={{ color: "var(--brand-text-muted)", opacity: 0.5 }}>
+                Platform Milestones
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {milestones.map(m => <MilestoneCard key={m.id} milestone={m} />)}
+            </div>
+          </div>
+        )}
+
+        {/* Pilot agents */}
+        {pilot.length > 0 && (
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-2 h-2 rounded-full bg-amber-400" />
+              <p className="text-xs font-bold tracking-[0.18em] uppercase" style={{ color: "var(--brand-text-muted)", opacity: 0.5 }}>
+                Active Pilots · {pilot.length} agent{pilot.length > 1 ? "s" : ""}
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {pilot.map(agent => (
+                <PilotCard key={agent.id} agent={agent} onClick={() => setSelected(agent)} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Planned agents */}
+        {planned.length > 0 && (
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-2 h-2 rounded-full bg-blue-400" />
+              <p className="text-xs font-bold tracking-[0.18em] uppercase" style={{ color: "var(--brand-text-muted)", opacity: 0.5 }}>
+                On the Roadmap · {planned.length} agent{planned.length > 1 ? "s" : ""}
+              </p>
+            </div>
+            <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid var(--brand-surface-border)" }}>
+              {planned.map((agent, i) => (
+                <div key={agent.id} style={i > 0 ? { borderTop: "1px solid var(--brand-surface-border)" } : {}}>
+                  <PlannedRow agent={agent} onClick={() => setSelected(agent)} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+      </div>
 
       {selected && createPortal(
         <AgentModal agent={selected} onClose={() => setSelected(null)} />,

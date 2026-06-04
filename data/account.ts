@@ -223,7 +223,6 @@ export const ACCOUNT = {
     "account-team",
     "headless-360",
     "global-map",
-    "agents",
     "strategy",
     "roi-calculator",
     "pulse",
@@ -885,6 +884,7 @@ export const ACCOUNT = {
       {
         id: "agent-1",
         status: "live" as const,
+        avatar: "/images/agent-avatar-1.png",
         name: "TODO: Agent Name",
         tagline: "TODO: First-person — what I do and why it matters.",
         entity: "TODO: Business unit or org entity",
@@ -903,6 +903,7 @@ export const ACCOUNT = {
       {
         id: "agent-2",
         status: "pilot" as const,
+        avatar: "/images/agent-avatar-2.png",
         name: "TODO: Agent Name",
         tagline: "TODO: First-person tagline.",
         entity: "TODO: Entity",
@@ -920,6 +921,7 @@ export const ACCOUNT = {
       {
         id: "agent-3",
         status: "planned" as const,
+        avatar: "/images/agent-avatar-3.png",
         name: "TODO: Agent Name",
         tagline: "TODO: First-person tagline.",
         entity: "TODO: Entity",
