@@ -317,7 +317,7 @@ export const ACCOUNT = {
       { name: "Sales Cloud", role: "The system of action",     description: "TODO: How the primary CRM cloud connects." },
     ],
     quote: { text: "TODO: A closing quote or observation for act 1." },
-    next:  { href: "/act-3", label: "See the Agentic Enterprise" },
+    next:  { href: "/act-2", label: "See the Data Foundation" },
   },
 
   // ── Act 1 interactive flow (the hero scenario walkthrough) ────────────────
@@ -434,7 +434,7 @@ export const ACCOUNT = {
       { value: "100%",       label: "of AI agents depend on this layer" },
     ],
     quote: { text: "TODO: A closing quote for the data foundation page." },
-    next:  { href: "/act-1", label: "See Act 1" },
+    next:  { href: "/act-3", label: "See the Agentic Enterprise" },
   },
 
   // ── Act 3: Agentic Enterprise ──────────────────────────────────────────────
@@ -498,7 +498,7 @@ export const ACCOUNT = {
       { name: "Data Cloud",  tagline: "The intelligence foundation",   description: "TODO", actions: ["TODO action 1", "TODO action 2", "TODO action 3"] },
       { name: "Sales Cloud", tagline: "The system of execution",       description: "TODO", actions: ["TODO action 1", "TODO action 2", "TODO action 3"] },
     ],
-    next: { href: "/", label: "Return to Overview" },
+    next: { href: "/use-cases", label: "Explore Use Cases" },
   },
 
   // ── Use Cases (interactive library) ──────────────────────────────────────
