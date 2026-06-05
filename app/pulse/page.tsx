@@ -89,7 +89,7 @@ export default function PulsePage() {
 
       {/* Filtered feed */}
       <Section alt>
-        <SectionHeader eyebrow="Feed" title="Events &amp; Updates" />
+        <SectionHeader eyebrow="Feed" headline="Events &amp; Updates" />
 
         {/* Filter tabs */}
         <div className="flex items-center gap-2 flex-wrap mb-8">

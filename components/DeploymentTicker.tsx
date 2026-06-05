@@ -128,7 +128,7 @@ export default function DeploymentTicker() {
   return (
     <div ref={ref} className="border-t border-b" style={{ borderColor: "var(--brand-surface-border)", background: "var(--brand-section-alt)" }}>
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex items-stretch justify-center divide-x" style={{ divideColor: "var(--brand-surface-border)" }}>
+        <div className="flex items-stretch justify-center divide-x divide-[var(--brand-surface-border)]">
           {stats.map((stat, i) => (
             <div key={stat.label} style={i > 0 ? { borderLeft: "1px solid var(--brand-surface-border)" } : {}}>
               <Stat stat={stat} active={active} delay={i * 200} />

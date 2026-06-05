@@ -6,16 +6,17 @@ interface SectionProps {
   className?: string;
   divide?: boolean;
   light?: boolean;
+  alt?: boolean;
 }
 
-export default function Section({ eyebrow, title, subtitle, children, className = "", divide = false, light = false }: SectionProps) {
-  const bg = light ? "bg-[#F5F2EE]" : "bg-[#0A0A0A]";
-  const border = divide ? (light ? "border-t border-black/6" : "border-t border-white/8") : "";
+export default function Section({ eyebrow, title, subtitle, children, className = "", divide = false, light = false, alt = false }: SectionProps) {
+  const bg = light ? "var(--brand-light)" : alt ? "var(--brand-section-alt)" : "var(--brand-bg)";
+  const border = divide ? "border-t" : "";
   const headingColor = light ? "text-[#0A0A0A]" : "text-white";
   const bodyColor = light ? "text-[#3D3D3D]" : "text-white/80";
 
   return (
-    <section className={`${bg} ${border}`}>
+    <section className={border} style={{ background: bg, borderColor: "var(--brand-surface-border)" }}>
       <div className={`max-w-6xl mx-auto px-6 py-20 ${className}`}>
         {(eyebrow || title || subtitle) && (
           <div className="mb-12">

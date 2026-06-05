@@ -47,7 +47,7 @@ export default function InnovationPage() {
 
       {/* Experiment cards */}
       <Section alt>
-        <SectionHeader eyebrow="Experiments" title="What&rsquo;s Being Built" />
+        <SectionHeader eyebrow="Experiments" headline="What's Being Built" />
         <div className="space-y-8">
           {cfg.experiments.map((exp, i) => {
             const status = STATUS_CONFIG[exp.status];

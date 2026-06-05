@@ -435,14 +435,14 @@ export default function GlobalMapClient() {
           >
             <g transform={zoomTransform}>
               <Geographies geography={GEO_URL}>
-                {({ geographies }) =>
+                {({ geographies }: { geographies: import("react-simple-maps").Geography[] }) =>
                   [-1, 0, 1].map(offset => (
                     <g key={offset} transform={`translate(${offset * WORLD_PX}, 0)`}>
-                      {geographies.map(geo => {
+                      {geographies.map((geo: import("react-simple-maps").Geography) => {
                         const numericId = String(geo.id).padStart(3, "0");
                         const alpha3    = NUMERIC_TO_ALPHA3[numericId];
                         const style     = alpha3 ? getTimelineFill(alpha3) : { fill: "rgba(255,255,255,0.04)", stroke: "rgba(255,255,255,0.06)", strokeWidth: 0.3 };
-                        const name: string = geo.properties?.name ?? "";
+                        const name: string = (geo.properties as Record<string, string>)?.name ?? "";
                         return (
                           <Geography
                             key={`${geo.rsmKey}-${offset}`}
@@ -455,7 +455,7 @@ export default function GlobalMapClient() {
                               hover:   { outline: "none", cursor: alpha3 && getOUForCountry(alpha3, ous) ? "pointer" : "default" },
                               pressed: { outline: "none" },
                             }}
-                            onMouseEnter={e => alpha3 && handleGeoEnter(alpha3, name, e)}
+                            onMouseEnter={(e: React.MouseEvent) => alpha3 && handleGeoEnter(alpha3, name, e)}
                             onMouseLeave={handleGeoLeave}
                             onClick={() => alpha3 && handleGeoClick(alpha3)}
                           />
