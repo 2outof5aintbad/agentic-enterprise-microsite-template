@@ -66,14 +66,14 @@ export default function Headless360Page() {
 
             {/* Right: looping video */}
             <FadeIn delay={80} className="hidden lg:block">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: "16/10", border: "1px solid var(--brand-surface-border)", boxShadow: "0 24px 64px rgba(0,0,0,0.5)" }}>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl" style={{ border: "1px solid var(--brand-surface-border)", boxShadow: "0 24px 64px rgba(0,0,0,0.5)" }}>
                 <video
                   src="/images/headlessloop.mp4"
                   autoPlay
                   loop
                   muted
                   playsInline
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto block"
                 />
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, color-mix(in srgb, var(--brand-primary) 10%, transparent) 0%, transparent 50%)" }} />
               </div>
