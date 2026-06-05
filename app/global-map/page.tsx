@@ -5,7 +5,6 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
 import Section from "@/components/Section";
-import SectionHeader from "@/components/SectionHeader";
 import { ACCOUNT } from "@/data/account";
 
 const GlobalMapClient = dynamic(() => import("@/components/GlobalMapClient"), { ssr: false });

@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
 import Section from "@/components/Section";
 import SectionHeader from "@/components/SectionHeader";
-import { ACCOUNT } from "@/data/account";
 import { PULSE, CATEGORY_LABELS, CATEGORY_COLORS, type PulseCategory } from "@/data/pulse";
 
 const FILTER_OPTIONS: { id: PulseCategory | "all"; label: string }[] = [

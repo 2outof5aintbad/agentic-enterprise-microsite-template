@@ -141,12 +141,13 @@ function OUDetail({ ou, future, onClose }: { ou: GlobalMapOU; future: boolean; o
 
 export default function GlobalMapClient() {
   const cfg = ACCOUNT.globalMap;
-  if (!cfg) return null;
-  const { ous, timeline, markers = [] } = cfg;
+  const ous      = cfg?.ous      ?? [];
+  const timeline = cfg?.timeline ?? [];
+  const markers  = cfg?.markers  ?? [];
 
   // ── Pan / zoom state ──────────────────────────────────────────────────────
-  const [lon,  setLon]  = useState(15);   // longitude at center of view
-  const [lat,  setLat]  = useState(20);   // latitude at center of view
+  const [lon,  setLon]  = useState(cfg?.defaultZoom?.coordinates[0] ?? 15);
+  const [lat,  setLat]  = useState(cfg?.defaultZoom?.coordinates[1] ?? 20);
   const [zoom, setZoom] = useState(1);
 
   const mapRef      = useRef<HTMLDivElement>(null);
@@ -323,6 +324,8 @@ export default function GlobalMapClient() {
   // ── Zoom transform — scale about the projected position of (lon, lat) ──────
   // We scale about SVG center since the projection already centers on (lon, lat)
   const zoomTransform = `translate(${SVG_CX} ${SVG_CY}) scale(${zoom}) translate(${-SVG_CX} ${-SVG_CY})`;
+
+  if (!cfg) return null;
 
   return (
     <div className="space-y-4">

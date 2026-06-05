@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
@@ -10,11 +9,6 @@ import { ACCOUNT } from "@/data/account";
 
 export default function ROIPage() {
   const cfg = ACCOUNT.roi;
-
-  // Find which scenario is active to show its assumptions (ROICalculator owns the state,
-  // but we can show assumptions below by reading the selected scenario externally if needed)
-  // For now, show assumptions for first scenario as a baseline — they're generic enough.
-  const firstScenario = cfg.scenarios[0];
 
   return (
     <div className="min-h-screen" style={{ background: "var(--brand-bg)" }}>
