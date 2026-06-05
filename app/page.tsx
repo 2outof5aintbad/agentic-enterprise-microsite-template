@@ -1,5 +1,6 @@
+"use client";
+
 import Link from "next/link";
-import type { Metadata } from "next";
 import { ACCOUNT } from "@/data/account";
 import { THEMES } from "@/lib/themes";
 import Nav from "@/components/Nav";
@@ -8,11 +9,8 @@ import ActCard from "@/components/ActCard";
 import FadeIn from "@/components/FadeIn";
 import Footer from "@/components/Footer";
 import SectionHeader from "@/components/SectionHeader";
-
-export const metadata: Metadata = {
-  title: `${ACCOUNT.hero.headline.replace(/\n/g, " ")} · ${ACCOUNT.company} Executive Briefing`,
-  description: ACCOUNT.hero.subheadline,
-};
+import DeploymentTicker from "@/components/DeploymentTicker";
+import HeroCalculator from "@/components/HeroCalculator";
 
 export default function HomePage() {
   const { hero, platformInvestments, gap, acts } = ACCOUNT;
@@ -31,6 +29,26 @@ export default function HomePage() {
         stats={gap.stats}
         variant="home"
       />
+
+      {/* ── Your Numbers ── */}
+      <section style={{ background: "var(--brand-bg)" }}>
+        <div className="max-w-6xl mx-auto px-6 py-16">
+          <FadeIn>
+            <div className="max-w-xl">
+              <p className="text-[0.6rem] font-bold tracking-[0.16em] uppercase mb-2" style={{ color: "var(--brand-primary)", opacity: 0.7 }}>
+                See Your Impact
+              </p>
+              <p className="font-display text-2xl sm:text-3xl font-black leading-tight mb-1" style={{ color: "var(--brand-text-heading)" }}>
+                What does Agentforce unlock<br />for your field org?
+              </p>
+              <HeroCalculator />
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ── Deployment Ticker ── */}
+      <DeploymentTicker />
 
       {/* ── Platform Footprint ── */}
       <section className="border-t" style={{ background: "var(--brand-section-alt)", borderColor: "var(--brand-surface-border)" }}>
