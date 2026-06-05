@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p ${PORT:-3000}",
-    "lint": "next lint"
+    "lint": "next lint",
+    "knowledge": "node scripts/generate-knowledge.mjs"
   },
   "dependencies": {
     "jose": "^6.2.3",
