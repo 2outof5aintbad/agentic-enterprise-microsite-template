@@ -40,7 +40,7 @@ export default function AgentforceChat() {
     };
 
     const script = document.createElement("script");
-    script.src = `${orgUrl}/embeddedservice/bootstrap.js`;
+    script.src = `${orgUrl}/assets/js/bootstrap.min.js`;
     script.async = true;
     script.onload = onLoad;
     document.body.appendChild(script);
