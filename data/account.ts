@@ -1001,6 +1001,7 @@ export const ACCOUNT = {
       group:       "sales" as TeamGroup,
       description: "Jennifer owns the Apex Foods commercial relationship and has been managing the account since the $28M contract close in January 2024.",
       email:       "jennifer.park@salesforce.com",
+      image:       "/images/agent-avatar-4.png",
     },
     {
       name:        "Michael Reyes",
@@ -1008,6 +1009,7 @@ export const ACCOUNT = {
       group:       "engineering" as TeamGroup,
       description: "Michael leads the Agentforce technical strategy for Apex Foods — field briefing agent architecture, Data Cloud data model, and Slack integration.",
       email:       "michael.reyes@salesforce.com",
+      image:       "/images/agent-avatar-5.png",
     },
     {
       name:        "Amanda Walsh",
@@ -1015,6 +1017,7 @@ export const ACCOUNT = {
       group:       "success" as TeamGroup,
       description: "Amanda manages the Apex Foods platform health, adoption metrics, and the Accenture SI relationship day to day.",
       email:       "amanda.walsh@salesforce.com",
+      image:       "/images/agent-avatar-6.png",
     },
   ] as TeamMember[],
 
