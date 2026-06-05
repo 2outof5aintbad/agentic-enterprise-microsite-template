@@ -1,6 +1,6 @@
 # Agentic Enterprise Microsite Template
 
-A Next.js 14 executive briefing microsite template for Salesforce account teams. Password-gated, fully branded per account, and deployable to Vercel in minutes.
+A Next.js 14 executive briefing microsite for Salesforce account teams. Password-gated, fully branded per account, deployed to Heroku or Vercel in minutes.
 
 **One file drives the entire site:** `data/account.ts`
 
@@ -9,115 +9,125 @@ A Next.js 14 executive briefing microsite template for Salesforce account teams.
 ## Quick Start
 
 ```bash
-git clone https://github.com/2outof5aintbad/agentic-enterprise-microsite-template [account-slug]-microsite
-cd [account-slug]-microsite
+git clone https://github.com/2outof5aintbad/agentic-enterprise-microsite-template [account-slug]
+cd [account-slug]
 npm install
-cp .env.example .env.local   # fill in your values
-npm run dev                  # preview at localhost:3000
+cp .env.example .env.local   # set ACCESS_TOKEN at minimum
+npm run dev                  # http://localhost:3000
 ```
 
-Search `data/account.ts` for `TODO:` to find every field that needs content.
+Search `data/account.ts` for `TODO:` to find every field that needs content. The Apex Foods example shows what a complete, filled-in account looks like.
 
 ---
 
 ## Pages
 
-| Route | Description | Key data fields |
-|---|---|---|
-| `/` | Home — hero, platform tiles, gap section, three act cards | `hero`, `gap`, `acts`, `platformInvestments` |
-| `/act-1` | Act 1 detail — narrative, before/after, scenario flow, metrics | `act1`, `scenarioFlow` |
-| `/act-2` | Data foundation — narrative, data flows, metrics | `data360` |
-| `/act-3` | Agentic enterprise — narrative, workflow comparison, enablers | `act3` |
-| `/architecture` | Layered stack diagram — from Systems of Record up to Outcomes | `architecture` |
-| `/strategy` | Transformation matrix — from/to framework with Powered By column | `strategy` |
-| `/agents` | Filterable agent card gallery — name, category, tagline, description | `agents` |
-| `/proof` | Results by function — accordion with agent capabilities and metrics | `proof` |
-| `/use-cases` | Interactive use case selector with before/after and value levers | `useCases` |
-| `/business-case` | Investment lines, value unlocked, timing argument | `businessCase` |
-| `/pilot` | 3-phase pilot plan | `pilotPlan` |
-| `/account-team` | Team directory with group filters and photo support | `team` |
-| `/demo-library` | Vidyard demo library with category filters | `demos` |
-| `/gate` | Password gate — auto-applied to all routes via middleware | — |
+All pages are opt-in via `ACCOUNT.pages[]` in `data/account.ts`. Remove any slug to hide that page from nav and footer.
 
-All pages are optional except `/` and `/gate`. Pages with thin content can be left with `TODO:` placeholders and excluded from the nav — or removed entirely.
+| Slug | Page | Key data |
+|---|---|---|
+| *(always shown)* | Home — hero, platform tiles, gap, three act cards | `hero`, `gap`, `acts`, `platformInvestments` |
+| `act-1` | The Problem — narrative, before/after, scenario flow | `act1`, `scenarioFlow` |
+| `act-2` | Data Foundation — narrative, data flows, metrics | `data360` |
+| `act-3` | Agentic Enterprise — narrative, workflow comparison, agentic flow | `act3` |
+| `use-cases` | Interactive use case selector with before/after and value levers | `useCases` |
+| `architecture` | Layered stack diagram | `architecture` |
+| `strategy` | Transformation matrix — from/to framework | `strategy` |
+| `agent-tracker` | Live agent deployment dashboard — live, pilot, planned | `agentTracker` |
+| `proof` | Results by function — accordion with metrics and quotes | `proof` |
+| `business-case` | Investment lines, value unlocked, timing argument | `businessCase` |
+| `pilot` | 3-phase pilot plan | `pilotPlan` |
+| `demo-library` | Vidyard demo library with category filters | `demos` |
+| `account-team` | Team directory with group filters and photo support | `team` |
+| `pulse` | Events, announcements, and account updates | `data/pulse.ts` |
+| `roi-calculator` | 3-scenario interactive ROI calculator | `roi` |
+| `innovation` | Internal experiment showcase | `innovation` |
+| `headless-360` | Headless 360 platform architecture + looping video | `headless360` |
+| `global-map` | Animated global deployment map with OU timeline | `globalMap` |
 
 ---
 
 ## Brand Configuration
 
-Set once in `ACCOUNT.brand` in `data/account.ts`. Everything else updates automatically.
+Set once in `ACCOUNT.brand`. Everything updates automatically.
 
 ```ts
 brand: {
-  primary:     "#0066FF",    // Nav bar, buttons, pills, eyebrow accents
-  primaryDark: "#0052CC",    // Hover/pressed state (~15% darker than primary)
-  bg:          "#0A0A0A",    // Page background
-  light:       "#F5F5F5",    // Light section background (before/after, contrast sections)
-  fonts:       "editorial",  // Font pairing — see options below
+  primary:      "#0066FF",     // Buttons, pills, accents, metrics
+  primaryDark:  "#0052CC",     // Hover state (~15% darker)
+  theme:        "dark",        // dark | light | editorial | bold | corporate
+  fonts:        "editorial",   // editorial | refined | modern | technical | bold
+  heroLayout:   "centered",    // centered | split | minimal
+  headerAlign:  "left",        // left | center
+  density:      "default",     // compact | default | spacious
+  heroImage:    undefined,     // optional — see starter images below
+  customerLogo: undefined,     // optional — co-branded [customer] × Salesforce nav lockup
 }
 ```
 
-CSS variables (`--brand-primary`, `--brand-primary-dark`, `--brand-bg`, `--brand-light`, `--font-display`, `--font-body`) are injected automatically via `layout.tsx`.
+Text contrast on brand-primary backgrounds is computed automatically via WCAG luminance — no manual adjustment needed when changing the primary color.
+
+### Themes
+
+| Value | Background | Best for |
+|---|---|---|
+| `"dark"` | Near-black | Most accounts — high drama, works everywhere |
+| `"light"` | White | Clean, modern, approachable |
+| `"editorial"` | Warm off-white | Premium, life sciences, heritage brands |
+| `"bold"` | Deep charcoal | Energy, manufacturing, field operations |
+| `"corporate"` | Light gray | Financial services, government |
 
 ### Font Pairings
 
-| Value | Display (headings) | Body | Best for |
+| Value | Display | Body | Best for |
 |---|---|---|---|
-| `"editorial"` | Playfair Display | Inter | Pharma, insurance, premium, financial services |
-| `"refined"` | Cormorant Garamond | DM Sans | Life sciences, wealth management, heritage brands |
-| `"modern"` | DM Sans | DM Sans | SaaS, consumer tech, retail, health tech |
-| `"technical"` | Space Grotesk | Inter | Cloud platforms, engineering-led, cybersecurity |
-| `"bold"` | Sora | Inter | Energy, manufacturing, field operations, utilities |
+| `"editorial"` | Playfair Display | Inter | Premium, insurance, pharma |
+| `"refined"` | Cormorant Garamond | DM Sans | Life sciences, wealth management |
+| `"modern"` | DM Sans | DM Sans | SaaS, consumer tech, retail |
+| `"technical"` | Space Grotesk | Inter | Cloud, engineering-led, cybersecurity |
+| `"bold"` | Sora | Inter | Energy, manufacturing, field ops |
 
 ---
 
-## Account Team
+## Starter Media
 
-Each team member in `ACCOUNT.team`:
+All assets in `public/images/`. Reference directly in `account.ts`.
 
-```ts
-{
-  name:        "Jane Smith",
-  role:        "Account Director",
-  group:       "sales",         // sales | engineering | architecture | success | specialist | analytics | data
-  description: "One sentence on their role on this account.",
-  email:       "jane.smith@salesforce.com",
-  image:       "https://ca.slack-edge.com/[workspace-id]-[user-id]-[hash]-192",  // or local path
-}
+### Hero Backgrounds (`brand.heroImage`)
+```
+/images/hero-cpg.png            Consumer goods / retail
+/images/hero-finance.png        Financial services
+/images/hero-manufacturing.png  Manufacturing / field ops
+/images/hero-healthcare.png     Healthcare / life sciences
+/images/hero-tech.png           Technology / SaaS
+/images/hero-energy.png         Energy / utilities
 ```
 
-Slack CDN photo URLs (`ca.slack-edge.com`) are already whitelisted in `next.config.mjs` and work directly in the `image` field. Omit `image` to render initials.
-
----
-
-## Specialized Agents
-
-Each agent in `ACCOUNT.agents.roster`:
-
-```ts
-{
-  id:          "lead-prospecting",
-  name:        "Lead Prospecting Agent",
-  category:    "sales",   // sales | service | field-service | marketing | operations | finance | hr | consulting | platform
-  tagline:     "I will never let a qualified lead go dark.",
-  description: "2–3 sentences on what this agent does, what data it reads, what actions it takes.",
-}
+### Gate Page Backgrounds
+```
+/images/gate-finance.png        Cityscape at dusk
+/images/gate-manufacturing.png  Factory floor
+/images/gate-healthcare.png     Hospital corridor
+/images/gate-tech.png           Open-plan tech office
+/images/gate-energy.png         Offshore platform at sunset
 ```
 
-The `/agents` page includes a sticky filter bar with category counts, auto-derived from the roster.
+### Astro Assets
+```
+/images/ASTRO_NoOutfit_WalkRight_SFS20_sRGB.png
+/images/astro-laptop.png
+/images/astro-pointing.png
+/images/astro-celebrating.png
+/images/astro-thinking.png
+/images/astro-data.png
+/images/astro-agent.png
+/images/astro-mobile.png
+/images/astro-field.png
+/images/astro-icon.png          Icon mark (dark blue, no background)
+```
 
----
-
-## Assets
-
-Place in `public/images/`:
-
-| File | Used by | Notes |
-|---|---|---|
-| `hero.jpg` | `/` home page | Optional — creates a photo-backed hero |
-| `gate-hero.jpg` | `/gate` left panel | Optional — replaces the default Astro image |
-| `[customer]-logo.png` | Gate page, hero | Optional — customer logo |
-| `team-[firstname-lastname].png` | `/account-team` | Alternative to Slack CDN URLs |
+### Agent Avatars
+`agent-avatar-1.png` through `agent-avatar-10.png` — for agent tracker cards and team members.
 
 ---
 
@@ -125,55 +135,54 @@ Place in `public/images/`:
 
 ```bash
 ACCESS_TOKEN=YOUR_SITE_PASSWORD          # Required — gate password
-NEXT_PUBLIC_BASE_URL=https://your-url    # Required — used for OG tags and magic links
-MAGIC_LINK_SECRET=random-32-chars        # Required — signs magic link JWTs
-RESEND_API_KEY=re_...                    # Optional — enables magic link email access
+NEXT_PUBLIC_BASE_URL=https://your-url   # Required — OG tags and magic links
+MAGIC_LINK_SECRET=random-32-chars       # Optional — signs magic link JWTs
+RESEND_API_KEY=re_...                   # Optional — enables magic link email
 ```
 
 ---
 
+## Deploy to Heroku
+
+```bash
+heroku create [account-slug]
+heroku config:set ACCESS_TOKEN=yourpassword
+heroku config:set NEXT_PUBLIC_BASE_URL=https://[account-slug].herokuapp.com
+git push heroku main
+```
+
+The `Procfile` is already configured. Redeploy after content changes:
+```bash
+git add -A && git commit -m "Update [account] content" && git push heroku main
+```
+
 ## Deploy to Vercel
 
 ```bash
-# First deploy
 npx vercel --prod --yes
-
-# Add environment variables
 npx vercel env add ACCESS_TOKEN production
 npx vercel env add NEXT_PUBLIC_BASE_URL production
-npx vercel env add MAGIC_LINK_SECRET production
-
-# Redeploy with env vars live
 npx vercel --prod --yes
 ```
 
-After any content change:
+---
 
-```bash
-npx vercel --prod --yes   # live in ~60 seconds
-```
+## Team Photos
+
+The `image` field on each team member accepts:
+- **Slack CDN** — `https://ca.slack-edge.com/[workspace]-[user-id]-[hash]-192` (whitelisted in `next.config.mjs`)
+- **Local path** — `/images/team-jane-smith.png`
+- **Omitted** — renders initials with color-coded background
 
 ---
 
 ## Magic Link Access (Optional)
 
-Allows passwordless entry via email link instead of (or alongside) the password gate:
+Passwordless entry via email instead of the gate:
 
-1. Set `RESEND_API_KEY` in Vercel environment variables
-2. Add allowed email domains to `app/api/send-magic-link/route.ts` and `app/api/verify-email/route.ts`
-
-Recipients get a link in their inbox — no password needed.
+1. Set `RESEND_API_KEY` in environment variables
+2. Add allowed email domains in `app/api/send-magic-link/route.ts`
 
 ---
 
-## Rotating the Password
-
-```bash
-npx vercel env rm ACCESS_TOKEN production
-npx vercel env add ACCESS_TOKEN production   # enter new password when prompted
-npx vercel --prod --yes
-```
-
----
-
-Built by the Salesforce Account SE team · Powered by Next.js 14 + Tailwind CSS + Vercel
+Built by the Salesforce Account SE team · Next.js 14 · Tailwind CSS
