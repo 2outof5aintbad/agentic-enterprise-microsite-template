@@ -1,6 +1,6 @@
 # Agentic Enterprise Microsite Template
 
-A Next.js 14 executive briefing microsite for Salesforce account teams. Password-gated, fully branded per account, deployed to Heroku or Vercel in minutes.
+A Next.js 14 executive briefing microsite for Salesforce account teams. Password-gated, fully branded per account, deployed to Heroku in minutes.
 
 **One file drives the entire site:** `data/account.ts`
 
@@ -154,15 +154,6 @@ git push heroku main
 The `Procfile` is already configured. Redeploy after content changes:
 ```bash
 git add -A && git commit -m "Update [account] content" && git push heroku main
-```
-
-## Deploy to Vercel
-
-```bash
-npx vercel --prod --yes
-npx vercel env add ACCESS_TOKEN production
-npx vercel env add NEXT_PUBLIC_BASE_URL production
-npx vercel --prod --yes
 ```
 
 ---
